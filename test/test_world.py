@@ -24,7 +24,7 @@ ip = PendulumWorld(state, dt, params)
 force = dict()
 force['x'] = 0;
 
-time_steps = sys.argv[1]
+time_steps = int(sys.argv[1])
 
 i = 0
 while i < time_steps or time_steps == -1:
