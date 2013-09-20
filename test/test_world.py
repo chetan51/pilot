@@ -2,12 +2,15 @@ from pendulum.pendulum_world import PendulumWorld
 import numpy as np
 import sys
 
+theta = int(sys.argv[1])
+time_steps = int(sys.argv[2])
+
 state = dict()
 state['x'] 			= 0.
 state['xdot'] 		= 0.
 state['xdotdot']	= 0.
 state['theta_int'] 	= 0.
-state['theta'] 		= 0.174
+state['theta'] 		= theta*np.pi/180
 state['thetadot'] 	= 0.
 state['thetadotdot']= 0.
 
@@ -24,7 +27,7 @@ ip = PendulumWorld(state, dt, params)
 force = dict()
 force['x'] = 0;
 
-time_steps = int(sys.argv[1])
+
 
 i = 0
 while i < time_steps or time_steps == -1:
