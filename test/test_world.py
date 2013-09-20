@@ -10,7 +10,7 @@ state['x'] 			= 0.
 state['xdot'] 		= 0.
 state['xdotdot']	= 0.
 state['theta_int'] 	= 0.
-state['theta'] 		= theta*np.pi/180
+state['theta'] 		= np.deg2rad(theta)
 state['thetadot'] 	= 0.
 state['thetadotdot']= 0.
 
@@ -31,6 +31,6 @@ force['x'] = 0;
 
 i = 0
 while i < time_steps or time_steps == -1:
-	print state['theta'] * 180 / np.pi
+	print np.rad2deg(state['theta'])
 	ip.tick(force)
 	i += 1

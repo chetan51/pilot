@@ -4,8 +4,8 @@ An AI running on NuPIC using the CLA to control physical dynamic systems using g
 
 To test the pendulum simulation:
 	cd path/to/pilot
-	cd data
-	python test.py n
+	python test.py theta n
 
-where 'n' is the number of steps to run the simulation
+where 'theta' is the initial angle offset in degrees (0 degrees is the desired state)
+and 'n' is the number of steps to run the simulation
 if n is set to -1, then the simulation runs forever
