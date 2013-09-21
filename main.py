@@ -16,24 +16,23 @@ def run(theta):
 
     while True:
         state = world.observe()
-        printState(state)
 
         predictor.disableLearning()
         force = controller.act(state, predictor)
-        printForce(force)
 
         predictor.enableLearning()
         predictor.learn(state, force)
 
+        printTimestep(state, force)
         world.tick(force)
 
 
-def printState(state):
-    print "angle: " + str(np.rad2deg(state['theta'])) + "\t" + "position: " + str(state['x'])
+def printTimestep(state, force):
+    print "angle: " + to_str(np.rad2deg(state['theta'])) + "\t" + "position: " + to_str(state['x']) + "\t" + "force: " + to_str(force['x'])
 
 
-def printForce(force):
-    print "force: " + str(force['x'])
+def to_str(f):
+    return "%.2f" % f
 
 
 if __name__ == "__main__":
