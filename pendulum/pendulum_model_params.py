@@ -48,6 +48,20 @@ MODEL_PARAMS = {
                     'minval': 0,
                     'maxval': 360,
                     'periodic': True
+                },
+                'x': {
+                    'fieldname': u'x',
+                    'name': u'x',
+                    'type': 'AdaptiveScalarEncoder',
+                    'n': 121,
+                    'w': 21
+                },
+                'force_x': {
+                    'fieldname': u'force_x',
+                    'name': u'force_x',
+                    'type': 'AdaptiveScalarEncoder',
+                    'n': 121,
+                    'w': 21
                 }
             },
 
