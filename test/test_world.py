@@ -6,11 +6,11 @@ theta = int(sys.argv[1])
 time_steps = int(sys.argv[2])
 
 state = {	'x' 			: 0.,
-	     	'xdot' 		: 0.,
+	     	'xdot' 			: 0.,
 	     	'xdotdot' 		: 0.,
 	     	'theta_int' 	: 0.,
 	     	'theta' 		: np.deg2rad(theta),
-	     	'thetadot' 	: 0.,
+	     	'thetadot' 		: 0.,
 	     	'thetadotdot' 	: 0.}
 
 dt = 0.01
@@ -25,6 +25,6 @@ ip = PendulumWorld(state, dt, params)
 
 i = 0
 while i < time_steps or time_steps == -1:
-	print np.rad2deg(state['theta'])
+	print str(np.rad2deg(state['theta'])) + "\t" +  str(state['x'])
 	ip.tick(force)
 	i += 1
