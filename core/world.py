@@ -5,7 +5,7 @@ class World:
 		self.dt = dt
 		self.params = params
 
-	def observe():
+	def observe(self):
 		return self.state
 
 	def tick(self, force):
