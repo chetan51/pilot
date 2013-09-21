@@ -1,7 +1,12 @@
+from nupic.frameworks.opf.modelfactory import ModelFactory
+
 class Predictor:
 
     def __init__(self):
-        print "TODO: implement Predictor.init"
+        self.model = ModelFactory.create(self.getModelParams())
+
+    def getModelParams(self):
+        print "getModelParams needs to be overridden"
 
     def learn(self, state, force):
         print "TODO: implement Predictor.learn"
