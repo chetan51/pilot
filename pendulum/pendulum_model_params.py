@@ -229,7 +229,7 @@ MODEL_PARAMS = {
 
             # This is set after the call to updateConfigFromSubConfig and is
             # computed from the aggregationInfo and predictAheadTime.
-            'steps': '1,10,20,30,40,50',
+            'steps': '1',
         },
 
         'trainSPNetOnlyIfRequested': False,
