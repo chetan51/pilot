@@ -7,21 +7,7 @@ from pendulum.pendulum_controller import PendulumController
 from pendulum.pendulum_predictor import PendulumPredictor
 
 def run(theta):
-    state = {   'x'             : 0.,
-                'xdot'          : 0.,
-                'xdotdot'       : 0.,
-                'theta_int'     : 0.,
-                'theta'         : np.deg2rad(theta),
-                'thetadot'      : 0.,
-                'thetadotdot'   : 0.}
-
-    dt = 0.01
-
-    params = {  'm'             : 1.,
-                'k'             : 2.,
-                'l'             : 1.}
-
-    world = PendulumWorld(state, dt, params)
+    world = PendulumWorld()
     controller = PendulumController(None)
     predictor = PendulumPredictor()
 

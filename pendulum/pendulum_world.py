@@ -1,17 +1,27 @@
 import numpy as np
 from core.world import World
 
-default_state = {	'x' 			: 0.,
-	     			'xdot' 			: 0.,
-	     			'xdotdot' 		: 0.,
-	     			'theta_int' 	: 0.,
-	     			'theta' 		: 0.,
-	     			'thetadot' 		: 0.,
-	     			'thetadotdot' 	: 0.}
-
 class PendulumWorld(World):
 
-	def __init__(self, dt, params, state=default_state):
+	def __init__(self, dt = 0.01, state=None, params=None):
+		if not params:
+		    params = {
+			    'm' : 1.,
+	            'k' : 2.,
+	            'l' : 1.
+            }
+
+		if not state:
+			state = {
+				'x'           : 0.,
+		  		'xdot'        : 0.,
+		  		'xdotdot'     : 0.,
+		  		'theta_int'   : 0.,
+		  		'theta'       : 0.,
+		  		'thetadot'    : 0.,
+		  		'thetadotdot' : 0.
+	  		}
+
 		self.state = state
 		self.dt = dt
 		self.params = params
