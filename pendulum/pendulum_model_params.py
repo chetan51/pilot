@@ -41,10 +41,13 @@ MODEL_PARAMS = {
             'encoders': {
                 'theta': {
                     'fieldname': u'theta',
-                    'n': 121,
                     'name': u'theta',
-                    'type': 'SDRCategoryEncoder',
-                    'w': 21
+                    'type': 'ScalarEncoder',
+                    'n': 121,
+                    'w': 21,
+                    'minval': 0,
+                    'maxval': 360,
+                    'periodic': True
                 }
             },
 
@@ -104,7 +107,7 @@ MODEL_PARAMS = {
 
             'synPermActiveInc': 0.1,
 
-            'synPermInactiveDec': 0.025910586208889513,
+            'synPermInactiveDec': 0.01,
 
             'randomSP': 0,
         },
@@ -208,11 +211,11 @@ MODEL_PARAMS = {
 
             # This controls how fast the classifier learns/forgets. Higher values
             # make it adapt faster and forget older patterns faster.
-            'alpha': 0.00080959960713530062,
+            'alpha': 0.0001,
 
             # This is set after the call to updateConfigFromSubConfig and is
             # computed from the aggregationInfo and predictAheadTime.
-            'steps': '10,20,30,40,50',
+            'steps': '1,10,20,30,40,50',
         },
 
         'trainSPNetOnlyIfRequested': False,
