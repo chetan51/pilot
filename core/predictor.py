@@ -13,7 +13,7 @@ class Predictor:
         print "TODO: implement Predictor.learn"
 
     def enableLearning(self):
-        print "TODO: implement Predictor.enableLearning"
+        self.model.enableLearning()
 
     def disableLearning(self):
-        print "TODO: implement Predictor.disableLearning"
+        self.model.disableLearning()
