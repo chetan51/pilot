@@ -12,6 +12,8 @@ def run(theta):
     controller = PendulumController(None)
     predictor = PendulumPredictor()
 
+    world.state['theta'] = np.deg2rad(theta)
+
     while True:
         state = world.observe()
         print state
