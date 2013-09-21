@@ -9,4 +9,4 @@ class World:
 		return self.state
 
 	def tick(self, force):
-		print "Tick is not specified" 
+		print "tick needs to be overridden" 
