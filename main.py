@@ -29,7 +29,7 @@ def run(theta):
 
 def printTimestep(state, force, predicted_state):
     print "[observed]  angle: " + to_str(np.rad2deg(state['theta'])) + "\t" + "position: " + to_str(state['x']) + "\t" + "force: " + to_str(force['x'])
-    print "[predicted] angle: " + to_str(np.rad2deg(predicted_state['theta'])) + "\t" + "position: " + to_str(predicted_state['x'])
+    print "[predicted] angle: " + to_str(np.rad2deg(predicted_state['theta']))
 
 
 def to_str(f):
