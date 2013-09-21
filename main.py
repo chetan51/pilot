@@ -2,9 +2,9 @@
 
 import sys
 import numpy as np
-from core.predictor import Predictor
 from pendulum.pendulum_world import PendulumWorld
 from pendulum.pendulum_controller import PendulumController
+from pendulum.pendulum_predictor import PendulumPredictor
 
 def run(theta):
     state = {   'x'             : 0.,
@@ -23,7 +23,7 @@ def run(theta):
 
     world = PendulumWorld(state, dt, params)
     controller = PendulumController(None)
-    predictor = Predictor()
+    predictor = PendulumPredictor()
 
     while True:
         state = world.observe()
@@ -32,7 +32,7 @@ def run(theta):
         predictor.disableLearning()
         force = controller.act(state, predictor)
         print force
-        
+
         predictor.enableLearning()
         predictor.learn(state, force)
 
