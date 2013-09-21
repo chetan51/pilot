@@ -11,6 +11,7 @@ class Predictor:
 
     def learn(self, state, force):
         print "TODO: implement Predictor.learn"
+        return state
 
     def enableLearning(self):
         self.model.enableLearning()
