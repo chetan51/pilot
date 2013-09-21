@@ -7,17 +7,17 @@ MODEL_PARAMS = {
 
     # Intermediate variables used to compute fields in modelParams and also
     # referenced from the control section.
-    'aggregationInfo': {   'days': 0,
-        'fields': [],
-        'hours': 0,
-        'microseconds': 0,
-        'milliseconds': 0,
-        'minutes': 0,
-        'months': 0,
-        'seconds': 0,
-        'weeks': 0,
-        'years': 0},
-    
+    'aggregationInfo': {'days': 0,
+                        'fields': [],
+                        'hours': 0,
+                        'microseconds': 0,
+                        'milliseconds': 0,
+                        'minutes': 0,
+                        'months': 0,
+                        'seconds': 0,
+                        'weeks': 0,
+                        'years': 0},
+
     'predictAheadTime': None,
 
     # Model parameter dictionary.
@@ -30,7 +30,7 @@ MODEL_PARAMS = {
             # if > 0: sensor region will print out on screen what it's sensing
             # at each step 0: silent; >=1: some info; >=2: more info;
             # >=3: even more info (see compute() in py/regions/RecordSensor.py)
-            'verbosity' : 0,
+            'verbosity': 0,
 
             # Example:
             #     dsEncoderSchema = [
@@ -38,13 +38,13 @@ MODEL_PARAMS = {
             #     ],
             #
             # (value generated from DS_ENCODER_SCHEMA)
-            'encoders': {   
+            'encoders': {
                 'theta': {
-                       'fieldname': u'theta',
-                       'n': 121,
-                       'name': u'theta',
-                       'type': 'SDRCategoryEncoder',
-                       'w': 21
+                    'fieldname': u'theta',
+                    'n': 121,
+                    'name': u'theta',
+                    'type': 'SDRCategoryEncoder',
+                    'w': 21
                 }
             },
 
@@ -59,7 +59,7 @@ MODEL_PARAMS = {
             # Example for 1.5 days: sensorAutoReset = dict(days=1,hours=12),
             #
             # (value generated from SENSOR_AUTO_RESET)
-            'sensorAutoReset' : None,
+            'sensorAutoReset': None,
         },
 
         'spEnable': True,
@@ -67,7 +67,7 @@ MODEL_PARAMS = {
         'spParams': {
             # SP diagnostic output verbosity control;
             # 0: silent; >=1: some info; >=2: more info;
-            'spVerbosity' : 0,
+            'spVerbosity': 0,
 
             'globalInhibition': 1,
 
@@ -113,7 +113,7 @@ MODEL_PARAMS = {
         # TP is necessary for making temporal predictions, such as predicting
         # the next inputs.  Without TP, the model is only capable of
         # reconstructing missing sensor inputs (via SP).
-        'tpEnable' : True,
+        'tpEnable': True,
 
         'tpParams': {
             # TP diagnostic output verbosity control;
@@ -171,7 +171,7 @@ MODEL_PARAMS = {
             # Permanence Decrement
             # If set to None, will automatically default to tpPermanenceInc
             # value.
-            'permanenceDec' : 0.1,
+            'permanenceDec': 0.1,
 
             'globalDecay': 0.0,
 
@@ -200,11 +200,11 @@ MODEL_PARAMS = {
         },
 
         'clParams': {
-            'regionName' : 'CLAClassifierRegion',
+            'regionName': 'CLAClassifierRegion',
 
             # Classifier diagnostic output verbosity control;
             # 0: silent; [1..6]: increasing levels of verbosity
-            'clVerbosity' : 0,
+            'clVerbosity': 0,
 
             # This controls how fast the classifier learns/forgets. Higher values
             # make it adapt faster and forget older patterns faster.

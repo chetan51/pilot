@@ -1,5 +1,5 @@
 class Controller:
-    
+
     def __init__(self, optimizer):
         self.optimizer = optimizer
 

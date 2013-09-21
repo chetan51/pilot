@@ -1,5 +1,6 @@
 from nupic.frameworks.opf.modelfactory import ModelFactory
 
+
 class Predictor:
 
     def __init__(self):

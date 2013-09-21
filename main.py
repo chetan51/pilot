@@ -6,6 +6,7 @@ from pendulum.pendulum_world import PendulumWorld
 from pendulum.pendulum_controller import PendulumController
 from pendulum.pendulum_predictor import PendulumPredictor
 
+
 def run(theta):
     world = PendulumWorld()
     controller = PendulumController(None)
@@ -26,8 +27,8 @@ def run(theta):
 
 
 if __name__ == "__main__":
-  if len(sys.argv) > 1:
-    theta = int(sys.argv[1])
-    run(theta)
-  else:
-    print "Usage: python main.py [theta]"
+    if len(sys.argv) > 1:
+        theta = int(sys.argv[1])
+        run(theta)
+    else:
+        print "Usage: python main.py [theta]"
