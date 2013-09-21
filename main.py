@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import sys
+from termcolor import colored
 import numpy as np
 from pendulum.pendulum_world import PendulumWorld
 from pendulum.pendulum_controller import PendulumController
@@ -28,8 +29,8 @@ def run(theta):
 
 
 def printTimestep(state, force, predicted_state):
-    print "[observed]  angle: " + to_str(np.rad2deg(state['theta'])) + "\t" + "position: " + to_str(state['x']) + "\t" + "force: " + to_str(force['x'])
-    print "[predicted] angle: " + to_str(np.rad2deg(predicted_state['theta']))
+    print colored("[observed]  angle: " + to_str(np.rad2deg(state['theta'])) + "\t" + "position: " + to_str(state['x']) + "\t" + "force: " + to_str(force['x']), 'green')
+    print colored("[predicted] angle: " + to_str(np.rad2deg(predicted_state['theta'])), 'red')
 
 
 def to_str(f):
