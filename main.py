@@ -8,13 +8,13 @@ from pendulum.pendulum_controller import PendulumController
 from pendulum.pendulum_predictor import PendulumPredictor
 
 
-def run(theta, log):
+def run(theta, log_path):
     world = PendulumWorld()
     controller = PendulumController(None)
     predictor = PendulumPredictor()
 
-    if log:
-        log_file = prepare_log_file(world)
+    if log_path:
+        log_file = prepare_log_file(log_path, world)
 
     world.state['theta'] = np.deg2rad(theta)
 
@@ -27,9 +27,12 @@ def run(theta, log):
 
         predicted_state = predictor.learn(state, force)
 
-        if log:
+        if log_file:
             log_file.write(
-                ', '.join(map(str, state.values() + ', ' + str(force))))
+                ','.join(map(str, state.values())) + ',' +
+                str(force['x']) +
+                '\n'
+            )
 
         printTimestep(state, force, predicted_state)
         world.tick(force)
@@ -42,9 +45,9 @@ def printTimestep(state, force, predicted_state):
     print colored("[predicted] angle: " + to_str(np.rad2deg(predicted_state['theta'])), 'red')
 
 
-def prepare_log_file(world):
-    log_file = open('pendulum_log.txt', 'w')
-    log_file.write(','.join(world.observe().keys()) + ', force' + '\n')
+def prepare_log_file(log_path, world):
+    log_file = open(log_path, 'w')
+    log_file.write(','.join(world.observe().keys()) + ',force' + '\n')
     log_file.write(', '.join(['float' for i in xrange(8)]) + '\n')
     log_file.write(',\n')
     return log_file
@@ -58,8 +61,8 @@ if __name__ == "__main__":
     log = False
     if len(sys.argv) > 1:
         theta = int(sys.argv[1])
-        if len(sys.argv) > 2 and '-log' in sys.argv:
-            log = True
-        run(theta, log)
+        if len(sys.argv) > 2:
+            log_path = sys.argv[2]
+        run(theta, log_path)
     else:
-        print "Usage: python main.py [theta] [options]"
+        print "Usage: python main.py [theta] [path/to/log]"
