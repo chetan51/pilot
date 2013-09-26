@@ -48,7 +48,7 @@ def printTimestep(state, force, predicted_state):
 def prepare_log_file(log_path, world):
     log_file = open(log_path, 'w')
     log_file.write(','.join(world.observe().keys()) + ',force' + '\n')
-    log_file.write(', '.join(['float' for i in xrange(8)]) + '\n')
+    log_file.write(','.join(['float' for i in xrange(8)]) + '\n')
     log_file.write(',\n')
     return log_file
 
