@@ -1,36 +1,53 @@
 #!/usr/bin/env python
 
 import sys
-from termcolor import colored
+# from termcolor import colored
 import numpy as np
 from pendulum.pendulum_world import PendulumWorld
-from pendulum.pendulum_controller import PendulumController
-from pendulum.pendulum_predictor import PendulumPredictor
+# from pendulum.pendulum_controller import PendulumController
+# from pendulum.pendulum_predictor import PendulumPredictor
 
 
-def run(theta):
+def run(theta, log):
     world = PendulumWorld()
-    controller = PendulumController(None)
-    predictor = PendulumPredictor()
+    # controller = PendulumController(None)
+    # predictor = PendulumPredictor()
+
+    if log:
+        log_file = prepare_log_file(world)
 
     world.state['theta'] = np.deg2rad(theta)
-
+    # REMOVE LINE BELOW CHETAN ****************
+    force = {'x': 0}
+    # REMOVE LINE ABOVE CHETAN ****************
     while True:
         state = world.observe()
+        if log:
+            log_file.write(', '.join(map(str, state.values())))
+        # predictor.disableLearning()
+        # force = controller.act(state, predictor)
 
-        predictor.disableLearning()
-        force = controller.act(state, predictor)
+        # predictor.enableLearning()
+        # predicted_state = predictor.learn(state, force)
 
-        predictor.enableLearning()
-        predicted_state = predictor.learn(state, force)
-
-        printTimestep(state, force, predicted_state)
+        # printTimestep(state, force, predicted_state)
         world.tick(force)
+    if log:
+        log_file.close()
 
 
-def printTimestep(state, force, predicted_state):
-    print colored("[observed]  angle: " + to_str(np.rad2deg(state['theta'])) + "\t" + "position: " + to_str(state['x']) + "\t" + "force: " + to_str(force['x']), 'green')
-    print colored("[predicted] angle: " + to_str(np.rad2deg(predicted_state['theta'])), 'red')
+# def printTimestep(state, force, predicted_state):
+#     print colored("[observed]  angle: " + to_str(np.rad2deg(state['theta'])) + "\t" + "position: " + to_str(state['x']) + "\t" + "force: " + to_str(force['x']), 'green')
+# print colored("[predicted] angle: "
+# +to_str(np.rad2deg(predicted_state['theta'])), 'red')
+
+
+def prepare_log_file(world):
+    log_file = open('pendulum_log.txt', 'w')
+    log_file.write(','.join(world.observe().keys()) + '\n')
+    log_file.write(', '.join(['float' for i in xrange(7)]) + '\n')
+    log_file.write(',\n')
+    return log_file
 
 
 def to_str(f):
@@ -38,8 +55,11 @@ def to_str(f):
 
 
 if __name__ == "__main__":
+    log = False
     if len(sys.argv) > 1:
         theta = int(sys.argv[1])
-        run(theta)
+        if len(sys.argv) > 2 and '-log' in sys.argv:
+            log = True
+        run(theta, log)
     else:
-        print "Usage: python main.py [theta]"
+        print "Usage: python main.py [theta] [options]"
