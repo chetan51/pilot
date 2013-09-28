@@ -43,18 +43,18 @@ MODEL_PARAMS = {
                     'fieldname': u'theta',
                     'name': u'theta',
                     'type': 'ScalarEncoder',
-                    'maxval': 360,
+                    'maxval': 6.2832,
                     'minval': 0,
                     'periodic': True,
                     'n': 100,
-                    'w': 21
+                    'w': 11
                 },
                 'force_x': {
                     'fieldname': u'force_x',
                     'name': u'force_x',
                     'type': 'AdaptiveScalarEncoder',
                     'n': 100,
-                    'w': 21
+                    'w': 11
                 }
             },
 
