@@ -42,25 +42,15 @@ MODEL_PARAMS = {
                 'theta': {
                     'fieldname': u'theta',
                     'name': u'theta',
-                    'type': 'ScalarEncoder',
-                    'n': 121,
-                    'w': 21,
-                    'minval': 0,
-                    'maxval': 360,
-                    'periodic': True
-                },
-                'x': {
-                    'fieldname': u'x',
-                    'name': u'x',
                     'type': 'AdaptiveScalarEncoder',
-                    'n': 121,
+                    'n': 100,
                     'w': 21
                 },
                 'force_x': {
                     'fieldname': u'force_x',
                     'name': u'force_x',
                     'type': 'AdaptiveScalarEncoder',
-                    'n': 121,
+                    'n': 100,
                     'w': 21
                 }
             },
@@ -198,7 +188,7 @@ MODEL_PARAMS = {
             # during search for the best-matching segments.
             # None=use default
             # Replaces: tpMinThreshold
-            'minThreshold': 9,
+            'minThreshold': 12,
 
             # Segment activation threshold.
             # A segment is active if it has >= tpSegmentActivationThreshold
@@ -213,7 +203,7 @@ MODEL_PARAMS = {
             # elements to append to the end of a learned sequence at a time.
             # Smaller values are better for datasets with short sequences,
             # higher values are better for datasets with long sequences.
-            'pamLength': 2,
+            'pamLength': 1,
         },
 
         'clParams': {
@@ -225,7 +215,7 @@ MODEL_PARAMS = {
 
             # This controls how fast the classifier learns/forgets. Higher values
             # make it adapt faster and forget older patterns faster.
-            'alpha': 0.0001,
+            'alpha': 0.001,
 
             # This is set after the call to updateConfigFromSubConfig and is
             # computed from the aggregationInfo and predictAheadTime.
