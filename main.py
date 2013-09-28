@@ -13,8 +13,7 @@ def run(theta, log_path):
     controller = PendulumController(None)
     predictor = PendulumPredictor()
 
-    if log_path:
-        log_file = prepare_log_file(log_path, world)
+    log_file = prepare_log_file(log_path, world) if log_path else None
 
     world.state['theta'] = np.deg2rad(theta)
 
@@ -61,8 +60,7 @@ if __name__ == "__main__":
     log = False
     if len(sys.argv) > 1:
         theta = int(sys.argv[1])
-        if len(sys.argv) > 2:
-            log_path = sys.argv[2]
+        log_path = sys.argv[2] if len(sys.argv) > 2 else None
         run(theta, log_path)
     else:
         print "Usage: python main.py [theta] [path/to/log]"
