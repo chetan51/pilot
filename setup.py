@@ -8,5 +8,6 @@ setup(name='Pilot',
       author='Chetan Surpur',
       author_email='chetan.surpur@gmail.com',
       url='https://github.com/chetan51/pilot',
-      packages=['pilot']
+      package_dir={'pilot': ''},
+      packages=['pilot.core', 'pilot.pendulum']
       )
