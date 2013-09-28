@@ -1,0 +1,2 @@
+modelParams|clParams|alpha,modelParams|inferenceType,modelParams|sensorParams|encoders|_classifierInput|n,modelParams|sensorParams|encoders|theta:n,modelParams|spParams|synPermInactiveDec,modelParams|tpParams|activationThreshold,modelParams|tpParams|minThreshold,modelParams|tpParams|pamLength
+0.025075,TemporalMultiStep,151,151,0.02875,13,10,2

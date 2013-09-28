@@ -1,0 +1,31 @@
+{
+  "includedFields": [
+    {
+      "fieldName": "theta", 
+      "fieldType": "float"
+    }
+  ], 
+  "streamDef": {
+    "info": "pendulum", 
+    "version": 1, 
+    "streams": [
+      {
+        "info": "pendulum.csv", 
+        "source": "file://pilot/pendulum.csv", 
+        "columns": [
+          "*"
+        ], 
+        "last_record": 10000
+      }
+    ]
+  }, 
+  "inferenceType": "MultiStep", 
+  "inferenceArgs": {
+    "predictionSteps": [
+      1
+    ], 
+    "predictedField": "theta"
+  }, 
+  "iterationCount": -1, 
+  "swarmSize": "medium"
+}
