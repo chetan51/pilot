@@ -42,19 +42,16 @@ MODEL_PARAMS = {
                 'theta': {
                     'fieldname': u'theta',
                     'name': u'theta',
-                    'type': 'ScalarEncoder',
-                    'maxval': 6.2832,
-                    'minval': 0,
-                    'periodic': True,
-                    'n': 100,
-                    'w': 11
+                    'type': 'AdaptiveScalarEncoder',
+                    'n': 151,
+                    'w': 21
                 },
                 'force_x': {
                     'fieldname': u'force_x',
                     'name': u'force_x',
                     'type': 'AdaptiveScalarEncoder',
-                    'n': 100,
-                    'w': 11
+                    'n': 151,
+                    'w': 21
                 }
             },
 
@@ -114,7 +111,7 @@ MODEL_PARAMS = {
 
             'synPermActiveInc': 0.1,
 
-            'synPermInactiveDec': 0.01,
+            'synPermInactiveDec': 0.028749999999999998,
 
             'randomSP': 0,
         },
@@ -191,14 +188,14 @@ MODEL_PARAMS = {
             # during search for the best-matching segments.
             # None=use default
             # Replaces: tpMinThreshold
-            'minThreshold': 12,
+            'minThreshold': 10,
 
             # Segment activation threshold.
             # A segment is active if it has >= tpSegmentActivationThreshold
             # connected synapses that are active due to infActiveState
             # None=use default
             # Replaces: tpActivationThreshold
-            'activationThreshold': 15,
+            'activationThreshold': 13,
 
             'outputType': 'normal',
 
@@ -206,7 +203,7 @@ MODEL_PARAMS = {
             # elements to append to the end of a learned sequence at a time.
             # Smaller values are better for datasets with short sequences,
             # higher values are better for datasets with long sequences.
-            'pamLength': 1,
+            'pamLength': 2,
         },
 
         'clParams': {
@@ -218,7 +215,7 @@ MODEL_PARAMS = {
 
             # This controls how fast the classifier learns/forgets. Higher values
             # make it adapt faster and forget older patterns faster.
-            'alpha': 0.001,
+            'alpha': 0.025075000000000004,
 
             # This is set after the call to updateConfigFromSubConfig and is
             # computed from the aggregationInfo and predictAheadTime.
