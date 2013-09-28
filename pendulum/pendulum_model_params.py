@@ -234,4 +234,7 @@ MODEL_PARAMS = {
 
         'trainSPNetOnlyIfRequested': False,
     },
+
+    'predictedField': 'theta',
+    'predictionSteps': [1]
 }
