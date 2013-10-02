@@ -8,14 +8,12 @@ extra_labels = defaultdict(str,	{	'string'	:	'S',
 
 class CsvLogger(Logger):
 
-    def __init__(self, world, file_path, labels, example_data):
+    def __init__(self, file_path, labels, example_data):
         if file_path == None:
             self.valid = False
         else:
             self.valid = True
-            self.world = world
-            self.file_path = file_path + \
-                uncamel(self.world.__class__.__name__) + '_logger.csv'
+            self.file_path = file_path
             self.labels = labels
             self.example_data = example_data
             self.set_meta_data()

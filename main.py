@@ -13,8 +13,9 @@ def run(theta, log_path):
     world = PendulumWorld()
     controller = PendulumController(None)
     predictor = PendulumPredictor()
-    logger = CsvLogger(world, log_path, world.observe()
-                       .keys() + ['force_x'], world.observe().values() + [0.])
+    logger = CsvLogger(log_path,
+                       world.observe().keys() + ['force_x', 'theta_pred_1'],
+                       world.observe().values() + [0., 0.])
 
     world.state['theta'] = np.deg2rad(theta)
 
@@ -27,7 +28,7 @@ def run(theta, log_path):
 
         predicted_state = predictor.learn(state, force)
 
-        logger.log(state.values() + [force['x']])
+        logger.log(state.values() + [force['x'], predicted_state['theta']])
 
         printTimestep(state, force, predicted_state)
         world.tick(force)
