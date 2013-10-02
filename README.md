@@ -12,3 +12,11 @@ To test the pendulum simulation:
     python main.py [theta]
 
 ...where [theta] is the initial angle offset in degrees (0 degrees is exactly vertical).
+
+## Todo
+
+* Wrap theta
+* Refactor loggers
+* Add ConsoleLogger
+* Refactor plotters
+* Implement training algorithm
