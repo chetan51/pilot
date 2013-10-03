@@ -1,9 +1,9 @@
 from core.controller import Controller
 from random import randrange
 
-FORCE_MIN = -10
-FORCE_MAX = 10
-DURATION_NO_FORCE = 300
+FORCE_MIN = -20
+FORCE_MAX = 20
+DURATION_NO_FORCE = 500
 
 
 class PendulumTrainingController(Controller):
