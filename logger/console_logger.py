@@ -1,9 +1,6 @@
 from logger import Logger
 from collections import defaultdict
 
-extra_labels = defaultdict(str,	{	'string'	:	'S',
-                                  'datetime'	:	'T'})
-
 
 class CsvLogger(Logger):
 
@@ -23,14 +20,3 @@ class CsvLogger(Logger):
             file = open(self.file_path, 'a')
             file.write(list_to_csv(data))
             file.close()
-
-    def set_meta_data(self):
-        file = open(self.file_path, 'w+')
-        file.write(list_to_csv(self.labels))
-        file.write(list_to_csv(self.types))
-        file.write(list_to_csv(map((lambda x: extra_labels[x]), self.types)))
-        file.close()
-
-
-def list_to_csv(lst):
-    return ','.join(map(str, lst)) + '\n'

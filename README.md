@@ -17,5 +17,7 @@ To test the pendulum simulation:
 
 * Refactor loggers
 * Add ConsoleLogger
-* Refactor plotters
 * Implement training algorithms
+* Add # of predicted time steps into config file
+* Implement sliding buffer for logging predictions
+* Refactor plotters

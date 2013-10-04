@@ -9,7 +9,6 @@ def d(obj, init):
 
 config = d(None, {
     'logger': d(None, {
-        # 'path': '/Users/simjega/Projects/HTM/Data/pendulum_logger.csv',
         'labels': ['xdot', 'theta', 'force_x', 'theta_pred_1'],
         'types': ['float', 'float', 'float', 'float'],
         'keys': d([], {'state': ['xdot', 'theta'],
