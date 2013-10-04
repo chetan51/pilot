@@ -5,8 +5,8 @@ from math import sin, exp
 FORCE_RANGE = 40.
 B_MAX = 50000.
 B_MIN = 100.
-B_CENTER = 1000.
-B_SPREAD = 400.
+B_CENTER = 2000.
+B_SPREAD = 4000.
 
 
 class PendulumTrainingController(Controller):
