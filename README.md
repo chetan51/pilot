@@ -15,8 +15,7 @@ To test the pendulum simulation:
 
 ## Todo
 
-* Wrap theta
 * Refactor loggers
 * Add ConsoleLogger
 * Refactor plotters
-* Implement training algorithm
+* Implement training algorithms

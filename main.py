@@ -1,21 +1,23 @@
 # !/usr/bin/env python
 
 import sys
+from config import config
 from termcolor import colored
 import numpy as np
 from pendulum.pendulum_world import PendulumWorld
 from pendulum.pendulum_controller import PendulumController
 from pendulum.pendulum_predictor import PendulumPredictor
 from logger.csv_logger import CsvLogger
+logger_config = config['logger']
+logger_keys = logger_config['keys']
 
 
 def run(theta, log_path):
     world = PendulumWorld()
     controller = PendulumController(None)
     predictor = PendulumPredictor()
-    logger = CsvLogger(log_path,
-                       world.observe().keys() + ['force_x', 'theta_pred_1'],
-                       world.observe().values() + [0., 0.])
+    state = world.observe()
+    logger = CsvLogger(logger_config)
 
     world.state['theta'] = np.deg2rad(theta)
 
@@ -28,7 +30,9 @@ def run(theta, log_path):
 
         predicted_state = predictor.learn(state, force)
 
-        logger.log(state.values() + [force['x'], predicted_state['theta']])
+        logger.log(dict_to_list(state, logger_keys['state']) +
+                   dict_to_list(force, logger_keys['force']) +
+                   dict_to_list(predicted_state, logger_keys['predicted_state']))
 
         printTimestep(state, force, predicted_state)
         world.tick(force)
@@ -43,6 +47,10 @@ def to_str(f):
     return "%.2f" % f
 
 
+def dict_to_list(dict, keys):
+    return map((lambda x: dict[x]), keys)
+
+
 if __name__ == "__main__":
     log = False
     if len(sys.argv) > 1:
@@ -50,4 +58,4 @@ if __name__ == "__main__":
         log_path = sys.argv[2] if len(sys.argv) > 2 else None
         run(theta, log_path)
     else:
-        print "Usage: python main.py [theta] [path/to/log]"
+        print "Usage: python main.py [theta]"

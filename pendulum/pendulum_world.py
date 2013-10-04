@@ -4,7 +4,7 @@ from core.world import World
 
 class PendulumWorld(World):
 
-    def __init__(self, dt=0.01, state=None, params=None):
+    def __init__(self, dt=0.01, state=None, params=None, rollover=False):
         if not params:
             params = {
                 'm': 1.,
@@ -26,6 +26,7 @@ class PendulumWorld(World):
         self.state = state
         self.dt = dt
         self.params = params
+        self.rollover = rollover
 
     def tick(self, force):
         # set parameters of pendulum
@@ -48,6 +49,10 @@ class PendulumWorld(World):
         # integrate
         thetadot = thetadot + thetadotdot * dt
         theta = theta + thetadot * dt
+
+        if self.rollover:
+            theta = theta % 360.0
+
         theta_int = theta_int + theta * dt
         xdot = xdot + xdotdot * dt
         x = x + xdot * dt
