@@ -19,7 +19,7 @@ class PendulumWorld(World):
                 'xdotdot': 0.,
                 'theta_int': 0.,
                 'theta': 0.,
-                'thetadot': 10.,
+                'thetadot': 0.,
                 'thetadotdot': 0.
             }
 
