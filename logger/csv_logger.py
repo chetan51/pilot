@@ -8,14 +8,22 @@ extra_labels = defaultdict(str,	{	'string'	:	'S',
 class CsvLogger(Logger):
 
     def __init__(self, config):
-        self.config = config
         self.file_path = config['path']
+        if not self.file_path:
+            self.is_valid = False
+            return
+
+        self.is_valid = True
+        self.config = config
         self.labels = config['labels']
         self.types = config['types']
         self.file = open(self.file_path, 'a')
         self.write_headers()
 
     def log(self, state, force, predicted_state):
+        if not self.is_valid:
+            return
+
         self.file.write(list_to_csv(
             dict_to_list(state, self.config['keys']['state']) +
             dict_to_list(force, self.config['keys']['force']) +
