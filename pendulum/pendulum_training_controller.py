@@ -1,4 +1,4 @@
-from core.controller import Controller
+from pendulum.pendulum_controller import PendulumController
 from random import randrange
 from math import sin, exp, floor
 
@@ -13,11 +13,7 @@ R_CENTER = 200000.
 R_SPREAD = 1000.
 
 
-class PendulumTrainingController(Controller):
-
-    def __init__(self, optimizer):
-        Controller.__init__(self, optimizer)
-        self.i = 0
+class PendulumTrainingController(PendulumController):
 
     def act(self, state, predictor):
         self.i += 1
