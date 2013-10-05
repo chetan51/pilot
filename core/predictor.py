@@ -4,9 +4,10 @@ from nupic.frameworks.opf.modelfactory import ModelFactory
 class Predictor:
 
     def __init__(self):
-        self.model = ModelFactory.create(self.getModelParams())
+        params = self.getModelParams()
+        self.model = ModelFactory.create(params)
 
-        predicted_field = self.getModelPredictedField()
+        predicted_field = params['predictedField']
         if predicted_field:
             self.model.enableInference({'predictedField': predicted_field})
 
@@ -14,9 +15,6 @@ class Predictor:
 
     def getModelParams(self):
         print "getModelParams needs to be overridden"
-
-    def getModelPredictedField(self):
-        return None
 
     def modelInputFromStateAndForce(self, state, force):
         return {}

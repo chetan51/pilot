@@ -7,9 +7,6 @@ class PendulumPredictor(Predictor):
     def getModelParams(self):
         return pendulum_model_params.MODEL_PARAMS
 
-    def getModelPredictedField(self):
-        return 'theta'
-
     def modelInputFromStateAndForce(self, state, force):
         return {
             'theta':   state['theta'],
