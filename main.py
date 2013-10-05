@@ -14,7 +14,7 @@ from logger.csv_logger import CsvLogger
 def run(theta, controller_type, log_path):
     world = PendulumWorld()
     controller = PendulumTrainingController(
-        None) if controller_type == 'train' else PendulumStabilizingController(None)
+        None) if controller_type == '--train' else PendulumStabilizingController(None)
     predictor = PendulumPredictor()
     state = world.observe()
 
