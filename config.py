@@ -7,13 +7,11 @@ def d(obj, init):
     return defaultdict((lambda: obj), init)
 
 
-config = d(None, {
-    'logger': d(None, {
-        'labels': ['xdot', 'theta', 'force_x', 'theta_pred_1'],
-        'types': ['float', 'float', 'float', 'float'],
-        'keys': d([], {'state': ['xdot', 'theta'],
-                       'force': ['x'],
-                       'predicted_state': ['theta']
-                       })
-    })
+logger_config = d(None, {
+    'labels': ['xdot', 'theta', 'force_x', 'theta_pred_1'],
+    'types': ['float', 'float', 'float', 'float'],
+    'keys': d([], {'state': ['xdot', 'theta'],
+                   'force': ['x'],
+                   'predicted_state': ['theta']
+                   })
 })
