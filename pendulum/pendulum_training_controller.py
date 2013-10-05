@@ -6,10 +6,10 @@ FORCE_RANGE = 40.
 B_MAX = 50000.
 B_MIN = 100.
 B_CENTER = 2000.
-B_SPREAD = 4000.
+B_SPREAD = 10000.
 R_MIN = 0.
 R_MAX = 10.
-R_CENTER = 20000.
+R_CENTER = 400000.
 R_SPREAD = 1000.
 
 
@@ -27,11 +27,13 @@ class PendulumTrainingController(Controller):
         return 0
 
     def force(self, i):
+        h = (FORCE_RANGE / 2)
         b = self.b(i)
-        f = (FORCE_RANGE / 2) * sin(i / b)
+        f = h * sin(i / b)
         r = int(floor(self.r(i) * 1000))
         n = randrange(-r, r) / 1000. if r else 0
         f = f + n
+        f = max(min(f, h), -h)
         return f
 
     def b(self, i):
