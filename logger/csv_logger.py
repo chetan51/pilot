@@ -17,7 +17,7 @@ class CsvLogger(Logger):
         self.config = config
         self.labels = config['labels']
         self.types = config['types']
-        self.file = open(self.file_path, 'a')
+        self.file = open(self.file_path, 'w+')
         self.write_headers()
 
     def log(self, state, force, predicted_state):
