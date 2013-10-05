@@ -15,7 +15,7 @@ def csv_plot(file_path, field_names):
     x = np.arange(len(lines))
     for col in range(len(lines[3:])):
         for row in range(len(field_names)):
-            y[row][col] = float(lines[3 + col][columns[row]])
+            y[row][col] = float(3)
     color_counter = 0
     plot_list = []
     for i in range(len(field_names)):

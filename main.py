@@ -5,14 +5,16 @@ from config import logger_config
 from termcolor import colored
 import numpy as np
 from pendulum.pendulum_world import PendulumWorld
-from pendulum.pendulum_controller import PendulumController
+from pendulum.pendulum_stabilizing_controller import PendulumStabilizingController
+from pendulum.pendulum_training_controller import PendulumTrainingController
 from pendulum.pendulum_predictor import PendulumPredictor
 from logger.csv_logger import CsvLogger
 
 
-def run(theta, log_path):
+def run(theta, controller_type, log_path):
     world = PendulumWorld()
-    controller = PendulumController(None)
+    controller = PendulumTrainingController(
+        None) if controller_type == 'train' else PendulumStabilizingController(None)
     predictor = PendulumPredictor()
     state = world.observe()
 
@@ -46,10 +48,13 @@ def to_str(f):
 
 
 if __name__ == "__main__":
-    log = False
     if len(sys.argv) > 1:
         theta = int(sys.argv[1])
+        if len(sys.argv) > 3:
+            controller_type = sys.argv[2] if len(sys.argv) > 2 else None
+            log_path = sys.argv[3] if len(sys.argv) > 3 else None
         log_path = sys.argv[2] if len(sys.argv) > 2 else None
-        run(theta, log_path)
+        controller_type = None
+        run(theta, log_path, controller_type)
     else:
-        print "Usage: python main.py [theta]"
+        print "Usage: python main.py [theta] [controller_type] [log_path]"
