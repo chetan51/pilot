@@ -16,4 +16,4 @@ class PendulumPredictor(Predictor):
 
     def stateFromModelResult(self, result):
         predictions = result.inferences['multiStepBestPredictions']
-        return {'theta': predictions[1]}
+        return {'theta': predictions[self.prediction_step]}

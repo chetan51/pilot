@@ -219,12 +219,12 @@ MODEL_PARAMS = {
 
             # This is set after the call to updateConfigFromSubConfig and is
             # computed from the aggregationInfo and predictAheadTime.
-            'steps': '1',
+            'steps': '10',
         },
 
         'trainSPNetOnlyIfRequested': False,
     },
 
     'predictedField': 'theta',
-    'predictionSteps': [1]
+    'predictionSteps': [10]  # should be same as clParam's steps
 }

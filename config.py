@@ -8,7 +8,7 @@ def d(obj, init):
 
 
 logger_config = d(None, {
-    'labels': ['xdot', 'theta', 'force_x', 'theta_pred_1'],
+    'labels': ['xdot', 'theta', 'force_x', 'pred_theta'],
     'types': ['float', 'float', 'float', 'float'],
     'keys': d([], {'state': ['xdot', 'theta'],
                    'force': ['x'],

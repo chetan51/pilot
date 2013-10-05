@@ -10,6 +10,7 @@ class Predictor:
         predicted_field = params['predictedField']
         if predicted_field:
             self.model.enableInference({'predictedField': predicted_field})
+        self.prediction_step = params['predictionSteps'][0]
 
     """ To be overridden """
 
