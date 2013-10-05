@@ -17,6 +17,8 @@ def run(theta, log_path):
     controller = PendulumController(None)
     predictor = PendulumPredictor()
     state = world.observe()
+
+    logger_config['path'] = log_path
     logger = CsvLogger(logger_config)
 
     world.state['theta'] = np.deg2rad(theta)
