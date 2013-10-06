@@ -1,7 +1,7 @@
 from pendulum.pendulum_controller import PendulumController
 
 FORCE_RANGE = 40.
-NUM_CANDIDATES = 10
+NUM_CANDIDATES = 40
 
 
 class PendulumStabilizingController(PendulumController):
@@ -21,7 +21,7 @@ class PendulumStabilizingController(PendulumController):
         return state['theta']
 
     def candidates(self):
-        candidates = []
         d = FORCE_RANGE / NUM_CANDIDATES
         h = FORCE_RANGE / 2
-        return map(lambda i: -h + d * i, range(NUM_CANDIDATES + 1))
+        candidates = map(lambda i: -h + d * i, range(NUM_CANDIDATES + 1))
+        return sorted(candidates, key=lambda c: abs(c))
