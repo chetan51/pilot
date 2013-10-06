@@ -9,7 +9,6 @@ class CsvLogger(Logger):
 
     def __init__(self, config):
         self.file_path = config['path']
-        print self.file_path
         if not self.file_path:
             self.is_valid = False
             return

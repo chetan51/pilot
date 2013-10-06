@@ -53,7 +53,6 @@ if __name__ == "__main__":
         theta = int(args[1])
         controller_type = 't' if '--train' in args else 's'
         log_path = sys.argv[3] if len(sys.argv) > 3 else None
-        print log_path
         run(theta, controller_type, log_path)
     else:
         print "Usage: python main.py [theta] [controller_type] [log_path]"
