@@ -5,23 +5,13 @@ from nupic.frameworks.opf.modelfactory import ModelFactory
 class Predictor:
 
     def __init__(self, serialization_config):
-        params = self.getModelParams()
-        save_path = serialization_config['path']
-
-        if os.path.exists(os.path.abspath(save_path)):
-            self.model = ModelFactory.loadFromCheckpoint(
-                serialization_config['path'])
-        else:
-            self.model = ModelFactory.create(params)
-
-        self.save_path = save_path
+        self.model_params = self.getModelParams()
+        self.prediction_step = self.model_params['predictionSteps'][0]
         self.save_freq = serialization_config['save_freq']
         self.num_calls = 0
 
-        predicted_field = params['predictedField']
-        if predicted_field:
-            self.model.enableInference({'predictedField': predicted_field})
-        self.prediction_step = params['predictionSteps'][0]
+        self.model_path = serialization_config['path']
+        self.initModel()
 
     """ To be overridden """
 
@@ -50,4 +40,16 @@ class Predictor:
     def checkpoint(self):
         self.num_calls += 1
         if self.num_calls % self.save_freq == 0:
-            self.model.save(os.path.abspath(self.save_path))
+            self.model.save(os.path.abspath(self.model_path))
+
+    """ Private """
+
+    def initModel(self):
+        if os.path.exists(os.path.abspath(self.model_path)):
+            self.model = ModelFactory.loadFromCheckpoint(self.model_path)
+        else:
+            self.model = ModelFactory.create(self.model_params)
+
+        predicted_field = self.model_params['predictedField']
+        if predicted_field:
+            self.model.enableInference({'predictedField': predicted_field})
