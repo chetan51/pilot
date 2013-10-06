@@ -17,6 +17,6 @@ logger_config = d(None, {
 })
 
 predictor_config = {
-    'serialization': {	'path': '/Users/simjega/Projects/HTM/pilot/model/default',
+    'serialization': {	'path': 'tmp/pilot/default',
                        'save_freq': 1000}
 }

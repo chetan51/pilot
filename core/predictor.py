@@ -1,3 +1,4 @@
+import os
 from nupic.frameworks.opf.modelfactory import ModelFactory
 
 
@@ -5,8 +6,15 @@ class Predictor:
 
     def __init__(self, serialization_config):
         params = self.getModelParams()
-        self.model = ModelFactory.create(params)
-        self.save_path = serialization_config['path']
+        save_path = serialization_config['path']
+
+        if os.path.exists(os.path.abspath(save_path)):
+            self.model = ModelFactory.loadFromCheckpoint(
+                serialization_config['path'])
+        else:
+            self.model = ModelFactory.create(params)
+
+        self.save_path = save_path
         self.save_freq = serialization_config['save_freq']
         self.num_calls = 0
 
@@ -31,7 +39,7 @@ class Predictor:
     def learn(self, state, force):
         self.num_calls += 1
         if self.num_calls % self.save_freq == 0:
-            self.model.save(self.save_path)
+            self.model.save(os.path.abspath(self.save_path))
         result = self.model.run(self.modelInputFromStateAndForce(state, force))
 
         return self.stateFromModelResult(result)
