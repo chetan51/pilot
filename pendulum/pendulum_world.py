@@ -43,7 +43,7 @@ class PendulumWorld(World):
 
         # update accelerations
         xdotdot = (np.sin(theta) / (k + 1 - np.cos(theta) ** 2)) * \
-            (g * np.cos(theta) - l * thetadot ** 2) - fx
+            (g * np.cos(theta) - l * thetadot ** 2) - fx / m
         thetadotdot = (xdotdot * np.cos(theta) + g * np.sin(theta)) / l
 
         # integrate
