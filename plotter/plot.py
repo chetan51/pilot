@@ -22,7 +22,7 @@ def csv_plot(file_path, field_names):
         plot_list.append(x)
         plot_list.append(y[i][:])
         plot_list.append(colors[color_counter] + '.')
-        color_counter += 1 % len(color_counter)
+        color_counter += 1
 
     plt.plot(*plot_list)
     plt.xlabel('Time Steps')
