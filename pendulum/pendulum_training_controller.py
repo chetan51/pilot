@@ -17,12 +17,12 @@ class PendulumTrainingController(PendulumController):
 
     def act(self, state, predictor):
         self.i += 1
-        return {'x': self.force(self.i)}
+        return self.force(self.force_x(self.i))
 
     def cost(self, state):
         return 0
 
-    def force(self, i):
+    def force_x(self, i):
         h = (FORCE_RANGE / 2)
         b = self.b(i)
         f = h * sin(i / b)
