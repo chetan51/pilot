@@ -9,6 +9,7 @@ class CsvLogger(Logger):
 
     def __init__(self, config):
         self.file_path = config['path']
+        print self.file_path
         if not self.file_path:
             self.is_valid = False
             return
@@ -18,6 +19,7 @@ class CsvLogger(Logger):
         self.labels = config['labels']
         self.types = config['types']
         self.file = open(self.file_path, 'w+')
+        print 'got here'
         self.write_headers()
 
     def log(self, state, force, predicted_state):

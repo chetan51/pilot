@@ -46,7 +46,8 @@ class Predictor:
 
     def initModel(self):
         if os.path.exists(os.path.abspath(self.model_path)):
-            self.model = ModelFactory.loadFromCheckpoint(self.model_path)
+            self.model = ModelFactory.loadFromCheckpoint(
+                os.path.relpath(self.model_path))
         else:
             self.model = ModelFactory.create(self.model_params)
 

@@ -1,5 +1,5 @@
 # !/usr/bin/env python
-
+import os
 import sys
 from config import logger_config, predictor_config
 from termcolor import colored
@@ -14,11 +14,11 @@ from logger.csv_logger import CsvLogger
 def run(theta, controller_type, log_path):
     world = PendulumWorld()
     controller = PendulumTrainingController(
-        None) if controller_type == '--train' else PendulumStabilizingController(None)
+        None) if controller_type == 't' else PendulumStabilizingController(None)
     predictor = PendulumPredictor(predictor_config['serialization'])
     state = world.observe()
 
-    logger_config['path'] = log_path
+    logger_config['path'] = os.path.abspath(log_path) if log_path else None
     logger = CsvLogger(logger_config)
 
     world.state['theta'] = np.deg2rad(theta)
@@ -48,13 +48,12 @@ def to_str(f):
 
 
 if __name__ == "__main__":
-    if len(sys.argv) > 1:
-        theta = int(sys.argv[1])
-        if len(sys.argv) > 3:
-            controller_type = sys.argv[2] if len(sys.argv) > 2 else None
-            log_path = sys.argv[3] if len(sys.argv) > 3 else None
-        log_path = sys.argv[2] if len(sys.argv) > 2 else None
-        controller_type = None
-        run(theta, log_path, controller_type)
+    args = sys.argv
+    if len(args) > 1:
+        theta = int(args[1])
+        controller_type = 't' if '--train' in args else 's'
+        log_path = sys.argv[3] if len(sys.argv) > 3 else None
+        print log_path
+        run(theta, controller_type, log_path)
     else:
         print "Usage: python main.py [theta] [controller_type] [log_path]"
