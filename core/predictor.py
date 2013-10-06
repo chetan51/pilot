@@ -9,6 +9,7 @@ class Predictor:
         self.prediction_step = self.model_params['predictionSteps'][0]
         self.save_freq = serialization_config['save_freq']
         self.num_calls = 0
+        self.is_learning_enabled = True
 
         self.model_path = serialization_config['path']
         self.initModel()
@@ -32,15 +33,18 @@ class Predictor:
         return self.stateFromModelResult(result)
 
     def enableLearning(self):
+        self.is_learning_enabled = True
         self.model.enableLearning()
 
     def disableLearning(self):
+        self.is_learning_enabled = False
         self.model.disableLearning()
 
     def checkpoint(self):
-        self.num_calls += 1
-        if self.num_calls % self.save_freq == 0:
-            self.model.save(os.path.abspath(self.model_path))
+        if self.is_learning_enabled:
+            self.num_calls += 1
+            if self.num_calls % self.save_freq == 0:
+                self.model.save(os.path.abspath(self.model_path))
 
     """ Private """
 
