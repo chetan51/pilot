@@ -1,7 +1,7 @@
 from pendulum.pendulum_controller import PendulumController
 
-FORCE_RANGE = 40.
-NUM_CANDIDATES = 40
+FORCE_RANGE = 100.
+NUM_CANDIDATES = 50
 
 
 class PendulumStabilizingController(PendulumController):

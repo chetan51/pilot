@@ -2,10 +2,10 @@ from pendulum.pendulum_controller import PendulumController
 from random import randrange
 from math import sin, exp, floor
 
-FORCE_RANGE = 40.
+FORCE_RANGE = 100.
 B_MAX = 50000.
 B_MIN = 100.
-B_CENTER = 2000.
+B_CENTER = 750.
 B_SPREAD = 10000.
 R_MIN = 0.
 R_MAX = 10.
