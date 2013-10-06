@@ -37,11 +37,8 @@ class Predictor:
     """ Public """
 
     def learn(self, state, force):
-        self.num_calls += 1
-        if self.num_calls % self.save_freq == 0:
-            self.model.save(os.path.abspath(self.save_path))
+        self.checkpoint()
         result = self.model.run(self.modelInputFromStateAndForce(state, force))
-
         return self.stateFromModelResult(result)
 
     def enableLearning(self):
@@ -49,3 +46,8 @@ class Predictor:
 
     def disableLearning(self):
         self.model.disableLearning()
+
+    def checkpoint(self):
+        self.num_calls += 1
+        if self.num_calls % self.save_freq == 0:
+            self.model.save(os.path.abspath(self.save_path))
