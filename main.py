@@ -1,7 +1,7 @@
 # !/usr/bin/env python
 
 import sys
-from config import logger_config
+from config import logger_config, predictor_config
 from termcolor import colored
 import numpy as np
 from pendulum.pendulum_world import PendulumWorld
@@ -15,7 +15,7 @@ def run(theta, controller_type, log_path):
     world = PendulumWorld()
     controller = PendulumTrainingController(
         None) if controller_type == '--train' else PendulumStabilizingController(None)
-    predictor = PendulumPredictor()
+    predictor = PendulumPredictor(predictor_config['serialization'])
     state = world.observe()
 
     logger_config['path'] = log_path

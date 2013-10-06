@@ -3,9 +3,12 @@ from nupic.frameworks.opf.modelfactory import ModelFactory
 
 class Predictor:
 
-    def __init__(self):
+    def __init__(self, serialization_config):
         params = self.getModelParams()
         self.model = ModelFactory.create(params)
+        self.save_path = serialization_config['path']
+        self.save_freq = serialization_config['save_freq']
+        self.num_calls = 0
 
         predicted_field = params['predictedField']
         if predicted_field:
@@ -26,7 +29,11 @@ class Predictor:
     """ Public """
 
     def learn(self, state, force):
+        self.num_calls += 1
+        if self.num_calls % self.save_freq == 0:
+            self.model.save(self.save_path)
         result = self.model.run(self.modelInputFromStateAndForce(state, force))
+
         return self.stateFromModelResult(result)
 
     def enableLearning(self):

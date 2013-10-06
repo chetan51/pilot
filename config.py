@@ -15,3 +15,8 @@ logger_config = d(None, {
                    'predicted_state': ['theta']
                    })
 })
+
+predictor_config = {
+    'serialization': {	'path': '/Users/simjega/Projects/HTM/pilot/model/default',
+                       'save_freq': 1000}
+}
