@@ -46,6 +46,13 @@ MODEL_PARAMS = {
                     'n': 151,
                     'w': 21
                 },
+                'thetadot': {
+                    'fieldname': u'thetadot',
+                    'name': u'thetadot',
+                    'type': 'AdaptiveScalarEncoder',
+                    'n': 151,
+                    'w': 21
+                },
                 'force_x': {
                     'fieldname': u'force_x',
                     'name': u'force_x',

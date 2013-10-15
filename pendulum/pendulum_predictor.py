@@ -10,7 +10,7 @@ class PendulumPredictor(Predictor):
     def modelInputFromStateAndForce(self, state, force):
         return {
             'theta':   state['theta'],
-            'x':       state['x'],
+            'thetadot':   state['thetadot'],
             'force_x': force['x']
         }
 
