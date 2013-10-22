@@ -7,8 +7,8 @@ class PendulumWorld(World):
     def __init__(self, dt=0.01, state=None, params=None, rollover=True):
         if not params:
             params = {
-                'm': 1.,
-                'k': 2.,
+                'm': .25,
+                'k': 1.1,
                 'l': 1.
             }
 
