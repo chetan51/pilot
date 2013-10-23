@@ -1,22 +1,16 @@
-from collections import defaultdict
-
-# define easy initializer for default dictionary
-
-
-def d(obj, init):
-    return defaultdict((lambda: obj), init)
-
-
-logger_config = d(None, {
+logger_config = {
     'labels': ['theta', 'thetadot', 'force_x', 'pred_theta'],
-    'types': ['float', 'float', 'float', 'float'],
-    'keys': d([], {'state': ['theta', 'thetadot'],
-                   'force': ['x'],
-                   'predicted_state': ['theta']
-                   })
-})
+    'types':  ['float', 'float', 'float', 'float'],
+    'keys':   {
+        'state': ['theta', 'thetadot'],
+        'force': ['x'],
+        'predicted_state': ['theta']
+    }
+}
 
 predictor_config = {
-    'serialization': {	'path': '/tmp/pilot/default/pendulum',
-                       'save_freq': 1000}
+    'serialization': {
+        'path': '/tmp/pilot/default/pendulum',
+        'save_freq': 1000
+    }
 }
