@@ -46,6 +46,20 @@ class Predictor:
             if self.num_calls % self.save_freq == 0:
                 self.model.save(os.path.abspath(self.model_path))
 
+    """ Helpers """
+
+    def expectation(self, multi_step_predictions):
+        k_steps = self.prediction_step
+        expectation = 0.0
+        total_probability = 0.0
+
+        for i in multi_step_predictions[k_steps]:
+            expectation += float(i) * float(multi_step_predictions[k_steps][i])
+            total_probability += float(multi_step_predictions[k_steps][i])
+
+        expectation = expectation / total_probability
+        return expectation
+
     """ Private """
 
     def initModel(self):
