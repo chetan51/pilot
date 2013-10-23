@@ -9,6 +9,7 @@ from logger.csv_logger import CsvLogger
 
 from copter.copter_world import CopterWorld
 
+
 def run():
     world = CopterWorld()
     i = 0
@@ -16,7 +17,7 @@ def run():
         state = world.observe()
         y = state['y']
         bit = 1 if y < 0 else 0
-        force = {'up' : bit}
+        force = {'up': bit}
         world.tick(force)
         print y
         i += 1

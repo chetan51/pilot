@@ -22,7 +22,7 @@ class CopterWorld(World):
         self.params = params
 
     def tick(self, force):
-        # set parameters of pendulum
+        # set parameters of copter
         g = 9.81
         dt = self.dt
         on = force['up']
@@ -34,7 +34,7 @@ class CopterWorld(World):
         m = p['m']
 
         # update accelerations
-        ydotdot = on * (m * g + 1) - m * g;
+        ydotdot = on * (m * g + 1) - m * g
 
         # integrate
         ydot = ydot + ydotdot * dt
