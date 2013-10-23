@@ -12,6 +12,7 @@ class CopterWorld(World):
 
         if not state:
             state = {
+                'y': 0.,
                 'dy': 0.,
                 'ydot': 0.,
                 'ydotdot': 0.
@@ -30,7 +31,7 @@ class CopterWorld(World):
         s = self.state
         p = self.params
 
-        [dy, ydot, ydotdot] = [s['dy'], s['ydot'], s['ydotdot']]
+        [y, dy, ydot, ydotdot] = [s['y'], s['dy'], s['ydot'], s['ydotdot']]
         m = p['m']
 
         # update accelerations
@@ -39,6 +40,7 @@ class CopterWorld(World):
         # integrate
         ydot = ydot + ydotdot * dt
         dy = ydot * dt
+        y = y + dy;
 
         # put all the variables back into the self.state
-        [s['dy'], s['ydot'], s['ydotdot']] = [dy, ydot, ydotdot]
+        [s['y'], s['dy'], s['ydot'], s['ydotdot']] = [y, dy, ydot, ydotdot]

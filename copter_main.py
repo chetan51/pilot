@@ -1,7 +1,7 @@
 # !/usr/bin/env python
 import os
 import sys
-from config import logger_config, predictor_config
+from copter_config import logger_config, predictor_config
 from termcolor import colored
 import numpy as np
 from copter.copter_world import CopterWorld
@@ -37,7 +37,7 @@ def run(y, log_path):
 
 
 def printTimestep(state, force, predicted_state):
-    print colored("[observed]  dy: " + to_str(state['dy']) + "\t" + "ydot: " + to_str(state['ydot']) + "\t" + "ydotdot: " + to_str(state['ydotdot']) + "\t" + "force: " + to_str(force['y']), 'green')
+    print colored("[observed]  dy: " + to_str(state['dy']) + "\t" + "y: " + to_str(state['y']) + "\t" + "ydot: " + to_str(state['ydot']) + "\t" + "ydotdot: " + to_str(state['ydotdot']) + "\t" + "force: " + to_str(force['y']), 'green')
     print colored("[predicted] dy: " + to_str(predicted_state['dy']), 'red')
 
 
