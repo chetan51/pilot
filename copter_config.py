@@ -11,7 +11,7 @@ logger_config = d(None, {
     'labels': ['dy', 'ydot', 'ydotdot', 'force_y', 'pred_dy'],
     'types': ['float', 'float', 'float', 'float', 'float'],
     'keys': d([], {'state': ['dy', 'ydot', 'ydotdot'],
-                   'force': ['up'],
+                   'force': ['y'],
                    'predicted_state': ['dy']
                    })
 })
