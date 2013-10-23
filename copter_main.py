@@ -15,11 +15,11 @@ def run():
     i = 0
     while True:
         state = world.observe()
-        y = state['y']
-        bit = 1 if y < 0 else 0
+        dy = state['dy']
+        bit = 1 if dy < 0 else 0
         force = {'up': bit}
         world.tick(force)
-        print y
+        print dy
         i += 1
 
 if __name__ == "__main__":
