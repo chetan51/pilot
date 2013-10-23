@@ -25,7 +25,7 @@ class CopterWorld(World):
         # set parameters of copter
         g = 9.81
         dt = self.dt
-        on = force['up']
+        on = force['y']
 
         s = self.state
         p = self.params

@@ -1,7 +1,7 @@
 # !/usr/bin/env python
 import os
 import sys
-from config import logger_config, predictor_config
+from pendulum_config import logger_config, predictor_config
 from termcolor import colored
 import numpy as np
 from pendulum.pendulum_world import PendulumWorld
@@ -55,4 +55,4 @@ if __name__ == "__main__":
         log_path = sys.argv[3] if len(sys.argv) > 3 else None
         run(theta, controller_type, log_path)
     else:
-        print "Usage: python main.py [theta] [controller_type] [log_path]"
+        print "Usage: python pendulum_main.py [theta] [controller_type] [log_path]"
