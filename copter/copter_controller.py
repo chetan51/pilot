@@ -24,7 +24,7 @@ class CopterController(Controller):
 
     """ Public """
 
-    def set_target(self, y):
+    def setTarget(self, y):
         self.target_y = y
 
     """ Private """
@@ -35,7 +35,7 @@ class CopterController(Controller):
     def cost(self, state):
         return abs(state['y'] - self.target_y)
 
-    def force_dict(self, force_y):
+    def forceDict(self, force_y):
         return {'y': force_y}
 
     def act(self, state, predictor):
@@ -47,16 +47,16 @@ class CopterController(Controller):
             force = self.last_force
         else:
             self.repeat_for = floor(self.responsivity(self.i))
-            force = self.choose_force(state, predictor)
+            force = self.chooseForce(state, predictor)
 
         self.last_force = force
-        return self.force_dict(force)
+        return self.forceDict(force)
 
-    def choose_force(self, state, predictor):
+    def chooseForce(self, state, predictor):
         exploit = random() < self.epsilon(self.i)
 
         if exploit:
-            f = self.best_force(state, predictor)
+            f = self.bestForce(state, predictor)
         else:
             f = (random() > 0.5)
 

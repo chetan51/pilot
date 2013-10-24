@@ -7,7 +7,7 @@ NUM_CANDIDATES = 50
 class PendulumStabilizingController(PendulumController):
 
     def act(self, state, predictor):
-        return self.force_dict(self.best_force(state, predictor))
+        return self.forceDict(self.bestForce(state, predictor))
 
     def cost(self, state):
         return state['theta']

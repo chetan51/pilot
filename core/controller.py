@@ -15,16 +15,16 @@ class Controller:
         print "TODO: implement Controller.candidates"
         return []
 
-    def force_dict(self, f):
-        print "TODO: implement Controller.force_dict"
+    def forceDict(self, f):
+        print "TODO: implement Controller.forceDict"
         return {}
 
     """ Public """
 
-    def best_force(self, state, predictor):
+    def bestForce(self, state, predictor):
         candidates = self.candidates()
         predictions = map(
-            lambda c: predictor.learn(state, self.force_dict(c)),
+            lambda c: predictor.learn(state, self.forceDict(c)),
             candidates
         )
         costs = map(lambda p: self.cost(p), predictions)
