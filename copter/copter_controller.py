@@ -18,9 +18,7 @@ class CopterController(Controller):
     def __init__(self, optimizer):
         Controller.__init__(self, optimizer)
         self.target_y = 0  # default
-        self.i = 0
-        self.last_force = 0
-        self.repeat_for = self.responsivity(self.i)
+        self.resetState()
 
     """ Public """
 
@@ -28,6 +26,11 @@ class CopterController(Controller):
         self.target_y = y
 
     """ Private """
+
+    def resetState(self):
+        self.i = 0
+        self.last_force = 0
+        self.repeat_for = self.responsivity(self.i)
 
     def candidates(self):
         return [0., 1.]

@@ -20,9 +20,7 @@ class CopterWorld(World):
                 'ydotdot': 0.
             }
 
-        self.state = state
-        self.dt = dt
-        self.params = params
+        World.__init__(self, dt, state, params)
 
     def tick(self, force):
         # set parameters of copter

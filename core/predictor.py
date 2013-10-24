@@ -40,6 +40,9 @@ class Predictor:
         self.is_learning_enabled = False
         self.model.disableLearning()
 
+    def resetState(self):
+        self.model.resetSequenceStates()
+
     def checkpoint(self):
         if self.is_learning_enabled:
             self.num_calls += 1

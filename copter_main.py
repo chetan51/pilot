@@ -9,6 +9,8 @@ from copter.copter_controller import CopterController
 from copter.copter_predictor import CopterPredictor
 from logger.csv_logger import CsvLogger
 
+WORLD_BOUND = 1000.
+
 
 def run(y, log_path):
     world = CopterWorld()
@@ -22,6 +24,12 @@ def run(y, log_path):
     world.state['y'] = y
 
     while True:
+        if (state['y'] > WORLD_BOUND or state['y'] < - WORLD_BOUND):
+            print "Hit bounds, resetting state..."
+            world.resetState()
+            predictor.resetState()
+            controller.resetState()
+
         state = world.observe()
 
         predictor.disableLearning()

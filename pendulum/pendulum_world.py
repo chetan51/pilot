@@ -23,9 +23,8 @@ class PendulumWorld(World):
                 'thetadotdot': 0.
             }
 
-        self.state = state
-        self.dt = dt
-        self.params = params
+        World.__init__(self, dt, state, params)
+
         self.rollover = rollover
 
     def tick(self, force):

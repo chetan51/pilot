@@ -21,6 +21,9 @@ class Controller:
 
     """ Public """
 
+    def resetState(self):
+        return
+
     def bestForce(self, state, predictor):
         candidates = self.candidates()
         predictions = map(
