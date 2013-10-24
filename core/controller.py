@@ -8,9 +8,31 @@ class Controller:
         return None
 
     def cost(self, state):
+        print "TODO: implement Controller.cost"
         return 0
 
-    """Private"""
+    def candidates(self):
+        print "TODO: implement Controller.candidates"
+        return []
+
+    def force_dict(self, f):
+        print "TODO: implement Controller.force_dict"
+        return {}
+
+    """ Public """
+
+    def best_force(self, state, predictor):
+        candidates = self.candidates()
+        predictions = map(
+            lambda c: predictor.learn(state, self.force_dict(c)),
+            candidates
+        )
+        costs = map(lambda p: self.cost(p), predictions)
+        min_cost = min(costs)
+        i_best = costs.index(min_cost)
+        return candidates[i_best]
+
+    """ Private """
 
     def simulate(self, state, force):
         print "TODO: implement Controller.simulate"

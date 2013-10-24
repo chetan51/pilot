@@ -17,7 +17,7 @@ class PendulumTrainingController(PendulumController):
 
     def act(self, state, predictor):
         self.i += 1
-        return self.force(self.force_x(self.i))
+        return self.force_dict(self.force_x(self.i))
 
     def cost(self, state):
         return 0

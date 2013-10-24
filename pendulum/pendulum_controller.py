@@ -7,5 +7,5 @@ class PendulumController(Controller):
         Controller.__init__(self, optimizer)
         self.i = 0
 
-    def force(self, force_x):
+    def force_dict(self, force_x):
         return {'x': force_x}

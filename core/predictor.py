@@ -30,7 +30,7 @@ class Predictor:
     def learn(self, state, force):
         self.checkpoint()
         result = self.model.run(self.modelInputFromStateAndForce(state, force))
-        return self.stateFromModelResult(result)
+        return self.stateFromModelResult(result, state)
 
     def enableLearning(self):
         self.is_learning_enabled = True

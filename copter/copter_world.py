@@ -1,6 +1,8 @@
 import numpy as np
 from core.world import World
 
+FY_BASE = 2.5
+
 
 class CopterWorld(World):
 
@@ -26,7 +28,7 @@ class CopterWorld(World):
         # set parameters of copter
         g = 9.81
         dt = self.dt
-        on = force['y']
+        fy = force['y']
 
         s = self.state
         p = self.params
@@ -35,12 +37,12 @@ class CopterWorld(World):
         m = p['m']
 
         # update accelerations
-        ydotdot = on * (m * g + 1) - m * g
+        ydotdot = (fy * FY_BASE * m * g) - (m * g)
 
         # integrate
         ydot = ydot + ydotdot * dt
         dy = ydot * dt
-        y = y + dy;
+        y = y + dy
 
         # put all the variables back into the self.state
         [s['y'], s['dy'], s['ydot'], s['ydotdot']] = [y, dy, ydot, ydotdot]

@@ -7,15 +7,7 @@ NUM_CANDIDATES = 50
 class PendulumStabilizingController(PendulumController):
 
     def act(self, state, predictor):
-        candidates = self.candidates()
-        predictions = map(
-            lambda c: predictor.learn(state, self.force(c)),
-            candidates
-        )
-        costs = map(lambda p: self.cost(p), predictions)
-        min_cost = min(costs)
-        i_best = costs.index(min_cost)
-        return self.force(candidates[i_best])
+        return self.force_dict(self.best_force(state, predictor))
 
     def cost(self, state):
         return state['theta']
