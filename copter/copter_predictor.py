@@ -16,9 +16,9 @@ class CopterPredictor(Predictor):
         }
 
     def stateFromModelResult(self, result, init_state):
-    #     predictions = result.inferences['multiStepBestPredictions']
-    #     return {'dy': predictions[self.prediction_step]}
-        dy = self.expectation(result.inferences['multiStepPredictions'])
+        predictions = result.inferences['multiStepBestPredictions']
+        dy = predictions[self.prediction_step]
+        # dy = self.expectation(result.inferences['multiStepPredictions'])
         y = init_state['y'] + dy
         
         return {
