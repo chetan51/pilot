@@ -2,7 +2,7 @@ from core.predictor import Predictor
 import copter_model_params
 
 
-class CopterPredictor(Predictor):
+class CopterIdealPredictor(Predictor):
 
     def getModelParams(self):
         return copter_model_params.MODEL_PARAMS
@@ -15,12 +15,14 @@ class CopterPredictor(Predictor):
             'force_y': force['y']
         }
 
-    def stateFromModelResult(self, result, init_state):
+    def stateFromModelResult(self, result, init_state, dt=0.01): # assumption made that time step is static
     #     predictions = result.inferences['multiStepBestPredictions']
     #     return {'dy': predictions[self.prediction_step]}
-        dy = self.expectation(result.inferences['multiStepPredictions'])
+        ydot,ydotdot = init_state['ydot'], init_state['ydotdot']
+        ydot = ydot + ydotdot*dt
+        dy = ydot*dt
         y = init_state['y'] + dy
-        
+
         return {
             'y': y,
             'dy': dy

@@ -6,7 +6,7 @@ from termcolor import colored
 import numpy as np
 from copter.copter_world import CopterWorld
 from copter.copter_controller import CopterController
-from copter.copter_predictor import CopterPredictor
+from copter.copter_ideal_predictor import CopterIdealPredictor
 from logger.csv_logger import CsvLogger
 
 WORLD_BOUND = 1000.
@@ -15,7 +15,7 @@ WORLD_BOUND = 1000.
 def run(y, log_path):
     world = CopterWorld()
     controller = CopterController(None)
-    predictor = CopterPredictor(predictor_config['serialization'])
+    predictor = CopterIdealPredictor(predictor_config['serialization'])
     state = world.observe()
 
     logger_config['path'] = os.path.abspath(log_path) if log_path else None
