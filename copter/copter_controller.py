@@ -44,7 +44,7 @@ class CopterController(Controller):
     def act(self, state, predictor):
         self.i += 1
         self.repeat_for -= 1
-        r = floor(self.repeat_for)
+        r = max(floor(self.repeat_for), 0)
 
         if (r):
             force = self.last_force
