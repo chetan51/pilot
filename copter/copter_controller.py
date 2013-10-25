@@ -4,13 +4,13 @@ from random import random
 
 E_MIN = 0.
 E_MAX = 1.
-E_CENTER = 50.
-E_SPREAD = 50.
+E_CENTER = 500000.
+E_SPREAD = 50000.
 
 R_MIN = 1.
-R_MAX = 100.
-R_CENTER = 1000.
-R_SPREAD = 700.
+R_MAX = 2500.
+R_CENTER = 10000.
+R_SPREAD = 5000.
 
 
 class CopterController(Controller):
@@ -59,8 +59,10 @@ class CopterController(Controller):
         exploit = random() < self.epsilon(self.i)
 
         if exploit:
+            # print "(Exploiting)"
             f = self.bestForce(state, predictor)
         else:
+            # print "(Exploring)"
             f = (random() > 0.5)
 
         return float(f)
