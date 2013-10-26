@@ -15,8 +15,8 @@ WORLD_BOUND = 1000.
 def run(y, t, log_path):
     world = CopterWorld()
     controller = CopterController(None, epsilon=1., inertia=0.)
-    predictor = CopterIdealPredictor(predictor_config['serialization'])
-    predictor.setWorld(world)
+    predictor = CopterIdealPredictor(predictor_config['serialization'],
+                                     world=world)
     state = world.observe()
 
     logger_config['path'] = os.path.abspath(log_path) if log_path else None
