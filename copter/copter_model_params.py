@@ -44,14 +44,14 @@ MODEL_PARAMS = {
                     'name': u'dy',
                     'type': 'AdaptiveScalarEncoder',
                     'n': 151,
-                    'w': 21
+                    'w': 3
                 },
                 'ydot': {
                     'fieldname': u'ydot',
                     'name': u'ydot',
                     'type': 'AdaptiveScalarEncoder',
                     'n': 151,
-                    'w': 21
+                    'w': 11
                 },
                 'force_y': {
                     'fieldname': u'force_y',
