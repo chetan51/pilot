@@ -14,7 +14,7 @@ WORLD_BOUND = 1000.
 
 def run(y, t, log_path):
     world = CopterWorld()
-    controller = CopterController(None)
+    controller = CopterController(None, epsilon=1., inertia=0.)
     predictor = CopterIdealPredictor(predictor_config['serialization'])
     predictor.setWorld(world)
     state = world.observe()

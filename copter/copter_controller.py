@@ -15,11 +15,14 @@ R_SPREAD = 5000.
 
 class CopterController(Controller):
 
-    def __init__(self, optimizer):
+    def __init__(self, optimizer, epsilon=None, inertia=None):
         Controller.__init__(self, optimizer)
         self.target_y = 0  # default
         self.i = 0
         self.last_force = 0
+
+        self.epsilon_override = epsilon
+        self.inertia_override = inertia
         self.repeat_for = self.inertia(self.i)
 
     """ Public """
@@ -68,12 +71,18 @@ class CopterController(Controller):
         return float(f)
 
     def epsilon(self, i):
+        if self.epsilon_override != None:
+            return self.epsilon_override
+
         range = E_MAX - E_MIN
         m = (-i + E_CENTER) / E_SPREAD
         e = (range / (1 + exp(m)))
         return e
 
     def inertia(self, i):
+        if self.inertia_override != None:
+            return self.inertia_override
+
         range = R_MAX - R_MIN
         m = (-i + R_CENTER) / R_SPREAD
         r = -(range / (1 + exp(m))) + R_MAX
