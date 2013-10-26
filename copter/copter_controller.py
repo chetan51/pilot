@@ -20,7 +20,7 @@ class CopterController(Controller):
         self.target_y = 0  # default
         self.i = 0
         self.last_force = 0
-        self.repeat_for = self.responsivity(self.i)
+        self.repeat_for = self.inertia(self.i)
 
     """ Public """
 
@@ -49,7 +49,7 @@ class CopterController(Controller):
         if (r):
             force = self.last_force
         else:
-            self.repeat_for = floor(self.responsivity(self.i))
+            self.repeat_for = floor(self.inertia(self.i))
             force = self.chooseForce(state, predictor)
 
         self.last_force = force
@@ -73,7 +73,7 @@ class CopterController(Controller):
         e = (range / (1 + exp(m)))
         return e
 
-    def responsivity(self, i):
+    def inertia(self, i):
         range = R_MAX - R_MIN
         m = (-i + R_CENTER) / R_SPREAD
         r = -(range / (1 + exp(m))) + R_MAX
