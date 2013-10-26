@@ -3,7 +3,6 @@ from core.world import World
 
 FY_BASE = 2.5
 
-
 class CopterWorld(World):
 
     def __init__(self, dt=0.01, state=None, params=None):
@@ -22,8 +21,8 @@ class CopterWorld(World):
 
         World.__init__(self, dt, state, params)
 
-    def tick(self, force):
-        # set parameters of copter
+    def peek(self,force):
+         # set parameters of copter
         g = 9.81
         dt = self.dt
         fy = force['y']
@@ -41,6 +40,21 @@ class CopterWorld(World):
         ydot = ydot + ydotdot * dt
         dy = ydot * dt
         y = y + dy
+        
+        return {
+            'y': y,
+            'dy': dy,
+            'ydot': ydot,
+            'ydotdot': ydotdot
+        }
 
+    def tick(self, force):
+        s = self.peek(force)
+        y, dy, ydot, ydotdot = s['y'], s['dy'], s['ydot'], s['ydotdot']
+        
+        s = self.state
+        
         # put all the variables back into the self.state
         [s['y'], s['dy'], s['ydot'], s['ydotdot']] = [y, dy, ydot, ydotdot]
+        return s
+

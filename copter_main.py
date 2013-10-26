@@ -12,16 +12,18 @@ from logger.csv_logger import CsvLogger
 WORLD_BOUND = 1000.
 
 
-def run(y, log_path):
+def run(y, t, log_path):
     world = CopterWorld()
     controller = CopterController(None)
     predictor = CopterIdealPredictor(predictor_config['serialization'])
+    predictor.setWorld(world)
     state = world.observe()
 
     logger_config['path'] = os.path.abspath(log_path) if log_path else None
     logger = CsvLogger(logger_config)
 
     world.state['y'] = y
+    controller.setTarget(t)
 
     while True:
         if (state['y'] > WORLD_BOUND or state['y'] < - WORLD_BOUND):
@@ -55,9 +57,10 @@ def to_str(f):
 
 if __name__ == "__main__":
     args = sys.argv
-    if len(args) > 1:
+    if len(args) > 2:
         y = int(args[1])
-        log_path = sys.argv[2] if len(sys.argv) > 2 else None
-        run(y, log_path)
+        t = int(args[2])
+        log_path = args[3] if len(args) > 3 else None
+        run(y, t, log_path)
     else:
-        print "Usage: python copter_main.py [y] [log_path]"
+        print "Usage: python copter_main.py [y] [target_y] [log_path]"
