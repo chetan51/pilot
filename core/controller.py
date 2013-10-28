@@ -26,13 +26,19 @@ class Controller:
 
     def bestForce(self, state, predictor):
         candidates = self.candidates()
+
         predictions = map(
             lambda c: predictor.learn(state, self.forceDict(c)),
             candidates
         )
-        costs = map(lambda p: self.cost(p), predictions)
+        costs = map(
+            lambda p: self.cost(predictor.stateFromPrediction(p, state)),
+            predictions
+        )
+
         min_cost = min(costs)
         i_best = costs.index(min_cost)
+
         return candidates[i_best]
 
     """ Private """

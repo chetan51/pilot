@@ -30,17 +30,17 @@ def run(theta, controller_type, log_path):
         force = controller.act(state, predictor)
         predictor.enableLearning()
 
-        predicted_state = predictor.learn(state, force)
+        prediction = predictor.learn(state, force)
 
-        logger.log(state, force, predicted_state)
+        logger.log(state, force, prediction)
 
-        printTimestep(state, force, predicted_state)
+        printTimestep(state, force, prediction)
         world.tick(force)
 
 
-def printTimestep(state, force, predicted_state):
+def printTimestep(state, force, prediction):
     print colored("[observed]  angle: " + to_str(np.rad2deg(state['theta'])) + "\t" + "position: " + to_str(state['x']) + "\t" + "force: " + to_str(force['x']), 'green')
-    print colored("[predicted] angle: " + to_str(np.rad2deg(predicted_state['theta'])), 'red')
+    print colored("[predicted] angle: " + to_str(np.rad2deg(prediction.values()[0])), 'red')
 
 
 def to_str(f):

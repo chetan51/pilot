@@ -6,7 +6,6 @@ class Predictor:
 
     def __init__(self, serialization_config):
         self.model_params = self.getModelParams()
-        self.prediction_step = self.model_params['predictionSteps'][0]
         self.save_freq = serialization_config['save_freq']
         self.num_calls = 0
         self.is_learning_enabled = True
@@ -22,15 +21,17 @@ class Predictor:
     def modelInputFromStateAndForce(self, state, force):
         return {}
 
-    def stateFromModelResult(self, result):
+    # Optional, only for predictors whose predicted field is a state field
+    def stateFromPrediction(self, prediction, init_state):
         return {}
 
     """ Public """
 
     def learn(self, state, force):
         self.checkpoint()
-        result = self.model.run(self.modelInputFromStateAndForce(state, force))
-        return self.stateFromModelResult(result, state)
+        input = self.modelInputFromStateAndForce(state, force)
+        result = self.model.run(input)
+        return self.predictionFromModelResult(result)
 
     def enableLearning(self):
         self.is_learning_enabled = True
@@ -51,17 +52,12 @@ class Predictor:
 
     """ Helpers """
 
-    def expectation(self, multi_step_predictions):
-        k_steps = self.prediction_step
-        expectation = 0.0
-        total_probability = 0.0
+    def predictionSteps(self):
+        return self.model_params['predictionSteps']
 
-        for i in multi_step_predictions[k_steps]:
-            expectation += float(i) * float(multi_step_predictions[k_steps][i])
-            total_probability += float(multi_step_predictions[k_steps][i])
-
-        expectation = expectation / total_probability
-        return expectation
+    def predictionFromModelResult(self, result):
+        prediction = result.inferences['multiStepBestPredictions']
+        return prediction
 
     """ Private """
 

@@ -14,7 +14,9 @@ class PendulumPredictor(Predictor):
             'force_x':  force['x']
         }
 
-    def stateFromModelResult(self, result, init_state):
-    #     predictions = result.inferences['multiStepBestPredictions']
-    #     return {'theta': predictions[self.prediction_step]}
-        return {'theta': self.expectation(result.inferences['multiStepPredictions'])}
+    def stateFromPrediction(self, prediction, init_state):
+        prediction_step = self.predictionSteps()[0]
+
+        return {
+            'theta': prediction[prediction_step]
+        }
