@@ -11,8 +11,9 @@ class CopterForcePredictor(Predictor):
         self.target = target
 
     def modelInputFromStateAndForce(self, state, force):
+        dtarget = state['y'] - self.target
         return {
-            'dtarget': state['y'] - self.target,
+            'dtarget': dtarget,
             'ydot':    state['ydot'],
             'force_y': force['y']
         }
