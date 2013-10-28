@@ -3,8 +3,7 @@ logger_config = {
     'types':  ['float', 'float', 'float', 'float'],
     'keys':   {
         'state': ['theta', 'thetadot'],
-        'force': ['x'],
-        'predicted_state': ['theta']
+        'force': ['x']
     }
 }
 

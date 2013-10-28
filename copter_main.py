@@ -6,7 +6,7 @@ from termcolor import colored
 import numpy as np
 from copter.copter_world import CopterWorld
 from copter.copter_pid_controller import CopterPIDController
-from copter.copter_predictor import CopterPredictor
+from copter.copter_force_predictor import CopterForcePredictor
 from logger.csv_logger import CsvLogger
 
 WORLD_BOUND = 1000.
@@ -15,14 +15,17 @@ WORLD_BOUND = 1000.
 def run(y, t, log_path):
     world = CopterWorld()
     controller = CopterPIDController(None)
-    predictor = CopterPredictor(predictor_config['serialization'])
+    predictor = CopterForcePredictor(predictor_config['serialization'])
+
     state = world.observe()
 
     logger_config['path'] = os.path.abspath(log_path) if log_path else None
     logger = CsvLogger(logger_config)
 
     world.state['y'] = y
+
     controller.setTarget(t)
+    predictor.setTarget(t)
 
     while True:
         if (state['y'] > WORLD_BOUND or state['y'] < - WORLD_BOUND):
@@ -46,8 +49,8 @@ def run(y, t, log_path):
 
 
 def printTimestep(state, force, prediction):
-    print colored("[observed]  dy: " + to_str(state['dy']) + "\t" + "y: " + to_str(state['y']) + "\t" + "ydot: " + to_str(state['ydot']) + "\t" + "ydotdot: " + to_str(state['ydotdot']) + "\t" + "force: " + to_str(force['y']), 'green')
-    print colored("[predicted] dy: " + to_str(prediction.values()[0]), 'red')
+    print colored("[observed]  y: " + to_str(state['y']) + "\t" + "ydot: " + to_str(state['ydot']) + "\t" + "ydotdot: " + to_str(state['ydotdot']) + "\t" + "force: " + to_str(force['y']), 'green')
+    print colored("[predicted] force_y: " + to_str(prediction.values()[0]), 'red')
 
 
 def to_str(f):
@@ -57,8 +60,8 @@ def to_str(f):
 if __name__ == "__main__":
     args = sys.argv
     if len(args) > 2:
-        y = int(args[1])
-        t = int(args[2])
+        y = float(args[1])
+        t = float(args[2])
         log_path = args[3] if len(args) > 3 else None
         run(y, t, log_path)
     else:
