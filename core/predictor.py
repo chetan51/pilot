@@ -9,6 +9,7 @@ class Predictor:
         self.save_freq = serialization_config['save_freq']
         self.num_calls = 0
         self.is_learning_enabled = True
+        self.last_prediction = None
 
         self.model_path = serialization_config['path']
         self.initModel()
@@ -31,7 +32,12 @@ class Predictor:
         self.checkpoint()
         input = self.modelInputFromStateAndForce(state, force)
         result = self.model.run(input)
-        return self.predictionFromModelResult(result)
+        prediction = self.predictionFromModelResult(result)
+
+        if self.is_learning_enabled:
+            self.last_prediction = prediction
+
+        return prediction
 
     def enableLearning(self):
         self.is_learning_enabled = True

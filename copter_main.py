@@ -6,15 +6,18 @@ from termcolor import colored
 import numpy as np
 from copter.copter_world import CopterWorld
 from copter.copter_pid_controller import CopterPIDController
+from copter.copter_cla_controller import CopterCLAController
 from copter.copter_force_predictor import CopterForcePredictor
 from logger.csv_logger import CsvLogger
 
 WORLD_BOUND = 1000.
+ITERATIONS_PER_RUN = 10000
 
 
 def run(y, t, log_path):
     world = CopterWorld()
     controller = CopterPIDController(None)
+    # controller = CopterCLAController(None)
     predictor = CopterForcePredictor(predictor_config['serialization'])
 
     state = world.observe()
@@ -26,10 +29,14 @@ def run(y, t, log_path):
 
     controller.setTarget(t)
     predictor.setTarget(t)
+    i = 0
 
     while True:
-        if (state['y'] > WORLD_BOUND or state['y'] < - WORLD_BOUND):
+        i += 1
+
+        if (i > ITERATIONS_PER_RUN or state['y'] > WORLD_BOUND or state['y'] < - WORLD_BOUND):
             print "Hit bounds, resetting state..."
+            i = 0
             world.resetState()
             predictor.resetState()
             controller.resetState()
