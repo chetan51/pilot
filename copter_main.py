@@ -29,8 +29,8 @@ def run(y, t, log_path):
 
     controller.setTarget(t)
     predictor.setTarget(t)
-    i = 0
 
+    i = 0
     while True:
         i += 1
 
