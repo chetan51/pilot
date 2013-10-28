@@ -42,11 +42,7 @@ def run(y, t, log_path):
             controller.resetState()
 
         state = world.observe()
-
-        predictor.disableLearning()
         force = controller.act(state, predictor)
-        predictor.enableLearning()
-
         prediction = predictor.learn(state, force)
 
         logger.log(state, force, prediction)

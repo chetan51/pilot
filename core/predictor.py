@@ -33,10 +33,17 @@ class Predictor:
         input = self.modelInputFromStateAndForce(state, force)
         result = self.model.run(input)
         prediction = self.predictionFromModelResult(result)
+        self.last_prediction = prediction
+        return prediction
 
-        if self.is_learning_enabled:
-            self.last_prediction = prediction
+    def predict(self, state, force):
+        input = self.modelInputFromStateAndForce(state, force)
 
+        self.disableLearning()
+        result = self.model.run(input)
+        self.enableLearning()
+
+        prediction = self.predictionFromModelResult(result)
         return prediction
 
     def enableLearning(self):

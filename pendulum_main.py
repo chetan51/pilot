@@ -25,11 +25,7 @@ def run(theta, controller_type, log_path):
 
     while True:
         state = world.observe()
-
-        predictor.disableLearning()
         force = controller.act(state, predictor)
-        predictor.enableLearning()
-
         prediction = predictor.learn(state, force)
 
         logger.log(state, force, prediction)

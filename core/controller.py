@@ -28,7 +28,7 @@ class Controller:
         candidates = self.candidates()
 
         predictions = map(
-            lambda c: predictor.learn(state, self.forceDict(c)),
+            lambda c: predictor.predict(state, self.forceDict(c)),
             candidates
         )
         costs = map(
