@@ -8,7 +8,7 @@ class CopterWorld(World):
     def __init__(self, dt=0.01, state=None, params=None):
         if not params:
             params = {
-                'm': 1.,
+                'm': 0.1,
             }
 
         if not state:

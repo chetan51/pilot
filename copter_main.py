@@ -5,7 +5,7 @@ from copter_config import logger_config, predictor_config
 from termcolor import colored
 import numpy as np
 from copter.copter_world import CopterWorld
-from copter.copter_controller import CopterController
+from copter.copter_pid_controller import CopterPIDController
 from copter.copter_ideal_predictor import CopterIdealPredictor
 from logger.csv_logger import CsvLogger
 
@@ -14,7 +14,7 @@ WORLD_BOUND = 1000.
 
 def run(y, t, log_path):
     world = CopterWorld()
-    controller = CopterController(None, epsilon=1., inertia=0.)
+    controller = CopterPIDController(None)
     predictor = CopterIdealPredictor(predictor_config['serialization'],
                                      world=world)
     state = world.observe()
