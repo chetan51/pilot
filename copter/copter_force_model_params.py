@@ -43,21 +43,21 @@ MODEL_PARAMS = {
                     'fieldname': u'dtarget',
                     'name': u'dtarget',
                     'type': 'AdaptiveScalarEncoder',
-                    'n': 151,
-                    'w': 5
+                    'n': 121,
+                    'w': 11
                 },
                 'ydot': {
                     'fieldname': u'ydot',
                     'name': u'ydot',
                     'type': 'AdaptiveScalarEncoder',
-                    'n': 151,
+                    'n': 121,
                     'w': 11
                 },
                 'force_y': {
                     'fieldname': u'force_y',
                     'name': u'force_y',
                     'type': 'AdaptiveScalarEncoder',
-                    'n': 151,
+                    'n': 121,
                     'w': 11
                 }
             },
