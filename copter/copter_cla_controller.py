@@ -6,6 +6,7 @@ class CopterCLAController(Controller):
     def __init__(self, optimizer):
         Controller.__init__(self, optimizer)
         self.target_y = 0  # default
+        self.last_force = self.forceDict(0.)
 
     """ Public """
 
@@ -18,9 +19,7 @@ class CopterCLAController(Controller):
         return {'y': force_y}
 
     def act(self, state, predictor):
-        last_prediction = predictor.last_prediction
-
-        if not last_prediction:
-            return self.forceDict(0.)
-
-        return self.forceDict(last_prediction[1])
+        prediction = predictor.predict(state, self.last_force)
+        force = self.forceDict(prediction[1])
+        self.last_force = force
+        return force
