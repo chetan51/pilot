@@ -1,9 +1,9 @@
 logger_config = {
-    'labels': ['dy', 'y', 'ydot', 'force_y', 'pred_force_y'],
+    'labels': ['dy', 'y', 'ydot', 'speed_y', 'pred_speed_y'],
     'types':  ['float', 'float', 'float', 'float', 'float'],
     'keys':   {
         'state': ['dy', 'y', 'ydot'],
-        'force': ['y']
+        'speed': ['y']
     }
 }
 

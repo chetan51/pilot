@@ -14,11 +14,11 @@ class CopterCLAController(Controller):
 
     """ Private """
 
-    def forceDict(self, force_y):
-        return {'y': force_y}
+    def speedDict(self, speed_y):
+        return {'y': speed_y}
 
     def act(self, state, predictor):
         prediction = predictor.last_prediction
-        f = prediction[1] if prediction else 0.
-        force = self.forceDict(f)
-        return force
+        s = prediction[1] if prediction else 0.
+        speed = self.speedDict(s)
+        return speed

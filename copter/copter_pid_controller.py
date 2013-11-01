@@ -16,15 +16,15 @@ class CopterPIDController(Controller):
 
     """ Private """
 
-    def forceDict(self, force_y):
-        return {'y': force_y}
+    def speedDict(self, speed_y):
+        return {'y': speed_y}
 
     def act(self, state, predictor):
-        force = self.chooseForce(state, predictor)
-        return self.forceDict(force)
+        speed = self.chooseSpeed(state, predictor)
+        return self.speedDict(speed)
 
-    def chooseForce(self, state, predictor):
+    def chooseSpeed(self, state, predictor):
         y_error = self.target_y - state['y']
         ydot_error = state['ydot']
-        f = 1 * y_error - 0.6 * ydot_error
-        return float(f)
+        s = 1 * y_error - 0.6 * ydot_error
+        return float(s)

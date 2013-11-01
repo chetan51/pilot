@@ -53,9 +53,9 @@ MODEL_PARAMS = {
                     'n': 121,
                     'w': 11
                 },
-                'force_y': {
-                    'fieldname': u'force_y',
-                    'name': u'force_y',
+                'speed_y': {
+                    'fieldname': u'speed_y',
+                    'name': u'speed_y',
                     'type': 'AdaptiveScalarEncoder',
                     'n': 121,
                     'w': 11
@@ -232,6 +232,6 @@ MODEL_PARAMS = {
         'trainSPNetOnlyIfRequested': False,
     },
 
-    'predictedField': 'force_y',
+    'predictedField': 'speed_y',
     'predictionSteps': [1]  # should be same as clParam's steps
 }

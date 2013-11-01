@@ -7,7 +7,7 @@ import numpy as np
 from copter.copter_world import CopterWorld
 from copter.copter_pid_controller import CopterPIDController
 from copter.copter_cla_controller import CopterCLAController
-from copter.copter_force_predictor import CopterForcePredictor
+from copter.copter_speed_predictor import CopterSpeedPredictor
 from logger.csv_logger import CsvLogger
 
 WORLD_BOUND = 500.
@@ -18,7 +18,7 @@ def run(y, t, log_path):
     world = CopterWorld()
     controller = CopterPIDController(None)
     # controller = CopterCLAController(None)
-    predictor = CopterForcePredictor(predictor_config['serialization'])
+    predictor = CopterSpeedPredictor(predictor_config['serialization'])
 
     state = world.observe()
 
@@ -42,17 +42,17 @@ def run(y, t, log_path):
             controller.resetState()
 
         state = world.observe()
-        force = controller.act(state, predictor)
-        prediction = predictor.learn(state, force)
+        speed = controller.act(state, predictor)
+        prediction = predictor.learn(state, speed)
 
-        logger.log(state, force, prediction)
+        logger.log(state, speed, prediction)
 
-        printTimestep(state, force, prediction)
-        world.tick(force)
+        printTimestep(state, speed, prediction)
+        world.tick(speed)
 
 
-def printTimestep(state, force, prediction):
-    print colored("[observed]  y: " + to_str(state['y']) + "\t" + "ydot: " + to_str(state['ydot']) + "\t" + "\t" + "speed input: " + to_str(force['y']), 'green')
+def printTimestep(state, speed, prediction):
+    print colored("[observed]  y: " + to_str(state['y']) + "\t" + "ydot: " + to_str(state['ydot']) + "\t" + "\t" + "speed input: " + to_str(speed['y']), 'green')
     print colored("[predicted] speed_y: " + to_str(prediction.values()[0]), 'red')
 
 

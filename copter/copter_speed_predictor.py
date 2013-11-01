@@ -1,8 +1,8 @@
 from core.predictor import Predictor
-import copter_force_model_params as model_params
+import copter_speed_model_params as model_params
 
 
-class CopterForcePredictor(Predictor):
+class CopterSpeedPredictor(Predictor):
 
     def getModelParams(self):
         return model_params.MODEL_PARAMS
@@ -10,10 +10,10 @@ class CopterForcePredictor(Predictor):
     def setTarget(self, target):
         self.target = target
 
-    def modelInputFromStateAndForce(self, state, force):
+    def modelInputFromStateAndForce(self, state, speed):
         dtarget = state['y'] - self.target
         return {
             'dtarget': dtarget,
             'ydot':    state['ydot'],
-            'force_y': force['y']
+            'speed_y': speed['y']
         }

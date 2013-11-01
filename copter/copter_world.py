@@ -15,10 +15,10 @@ class CopterWorld(World):
 
         World.__init__(self, dt, state, params)
 
-    def peek(self,force):
+    def peek(self,speed):
          # set parameters of copter
         dt = self.dt
-        sy = force['y'] # speed input
+        sy = speed['y'] # speed input
 
         s = self.state
 
@@ -36,8 +36,8 @@ class CopterWorld(World):
             'ydot': ydot,
         }
 
-    def tick(self, force):
-        s = self.peek(force)
+    def tick(self, speed):
+        s = self.peek(speed)
         y, dy, ydot = s['y'], s['dy'], s['ydot']
         
         s = self.state
