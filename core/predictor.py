@@ -9,6 +9,7 @@ class Predictor:
         self.save_freq = serialization_config['save_freq']
         self.num_calls = 0
         self.is_learning_enabled = True
+        self.last_prediction = None
 
         self.model_path = serialization_config['path']
         self.initModel()
@@ -32,6 +33,7 @@ class Predictor:
         input = self.modelInputFromStateAndForce(state, force)
         result = self.model.run(input)
         prediction = self.predictionFromModelResult(result)
+        self.last_prediction = prediction
         return prediction
 
     def predict(self, state, force):
