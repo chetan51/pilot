@@ -10,8 +10,8 @@ from copter.copter_cla_controller import CopterCLAController
 from copter.copter_force_predictor import CopterForcePredictor
 from logger.csv_logger import CsvLogger
 
-WORLD_BOUND = 1000.
-ITERATIONS_PER_RUN = 5000
+WORLD_BOUND = 500.
+ITERATIONS_PER_RUN = 2000
 
 
 def run(y, t, log_path):
