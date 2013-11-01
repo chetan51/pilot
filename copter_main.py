@@ -52,8 +52,8 @@ def run(y, t, log_path):
 
 
 def printTimestep(state, force, prediction):
-    print colored("[observed]  y: " + to_str(state['y']) + "\t" + "ydot: " + to_str(state['ydot']) + "\t" + "ydotdot: " + to_str(state['ydotdot']) + "\t" + "force: " + to_str(force['y']), 'green')
-    print colored("[predicted] force_y: " + to_str(prediction.values()[0]), 'red')
+    print colored("[observed]  y: " + to_str(state['y']) + "\t" + "ydot: " + to_str(state['ydot']) + "\t" + "\t" + "speed input: " + to_str(force['y']), 'green')
+    print colored("[predicted] speed_y: " + to_str(prediction.values()[0]), 'red')
 
 
 def to_str(f):

@@ -26,9 +26,5 @@ class CopterPIDController(Controller):
     def chooseForce(self, state, predictor):
         y_error = self.target_y - state['y']
         ydot_error = state['ydot']
-        ydotdot_error = state['ydotdot']
-        f = 1.2 * y_error - 0.6 * ydot_error - 0.1 * ydotdot_error
-        # print 'y_error: ', y_error, ' ydot_error: ', ydot_error, ' ydotdot_error: ', ydotdot_error
-        # print f
-        # f = 0 if f < 0.5 else 1
+        f = 1 * y_error - 0.6 * ydot_error
         return float(f)
