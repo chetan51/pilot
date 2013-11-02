@@ -1,7 +1,7 @@
 # !/usr/bin/env python
 import os
 import sys
-from pendulum_config import logger_config, predictor_config
+from pendulum.config import logger_config, predictor_config
 from termcolor import colored
 import numpy as np
 from pendulum.pendulum_world import PendulumWorld
