@@ -1,6 +1,7 @@
-import csv
 import numpy as np
 import matplotlib.pyplot as plt
+import sys
+
 
 colors = ['b', 'g', 'r', 'c', 'm', 'y', 'k', 'w']
 
@@ -33,3 +34,12 @@ def csv_plot(file_path, field_names):
 
 def meta_process(line):
     return map((lambda x: x.strip()), line)
+
+
+if __name__ == "__main__":
+    if len(sys.argv) >= 2:
+        log_path = sys.argv[1]
+        field_names = sys.argv[2:]
+        csv_plot(log_path, field_names)
+    else:
+        print "Usage: python plot.py [path/to/log] [field names]"
