@@ -6,12 +6,10 @@ class Predictor:
 
     def __init__(self, config):
         self.model_params = self.getModelParams()
-        self.num_calls = 0
         self.is_learning_enabled = True
         self.last_prediction = None
 
         self.model_path = config['serialization']['path']
-        self.save_freq = config['serialization']['save_freq']
 
         self.initModel()
 
@@ -30,7 +28,6 @@ class Predictor:
     """ Public """
 
     def learn(self, state, action):
-        self.checkpoint()
         input = self.modelInputFromStateAndAction(state, action)
         result = self.model.run(input)
         prediction = self.predictionFromModelResult(result)
@@ -62,9 +59,7 @@ class Predictor:
 
     def checkpoint(self):
         if self.is_learning_enabled:
-            self.num_calls += 1
-            if self.num_calls % self.save_freq == 0:
-                self.model.save(os.path.abspath(self.model_path))
+            self.model.save(os.path.abspath(self.model_path))
 
     """ Helpers """
 
