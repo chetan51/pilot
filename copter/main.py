@@ -18,9 +18,11 @@ if __name__ == "__main__":
     parser.add_argument('init_y', type=int, help='starting y position')
     parser.add_argument('target_y', type=int, help='target y position')
     parser.add_argument('--log', help='path to log file')
-    parser.add_argument('--learn', help='enable learning')
+    parser.add_argument('--learn', action='store_const', const=True,
+                        help='enable learning')
     parser.add_argument('--controller',
-                        help='controller type [PID,CLA]',
+                        help='controller type',
+                        choices=['PID', 'CLA'],
                         default="PID")
 
     args = parser.parse_args()
@@ -33,8 +35,10 @@ if __name__ == "__main__":
     else:
         controller = CopterPIDController(None)
 
-    runner = Runner(runner_config, world, predictor,
-                    controller, learning_enabled=args.learn)
+    runner = Runner(runner_config,
+                    world, predictor, controller,
+                    learning_enabled=args.learn,
+                    target_y=args.target_y)
 
     runner.addLogger(ConsoleLogger(logger_config))
     if args.log:

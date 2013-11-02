@@ -1,11 +1,12 @@
 class Runner:
 
-    def __init__(self, config, world, predictor, controller, learning_enabled=False):
+    def __init__(self, config, world, predictor, controller, learning_enabled=False, target_y=0.):
         self.config = config
         self.world = world
         self.predictor = predictor
         self.controller = controller
         self.learning_enabled = learning_enabled
+        self.target_y = target_y
 
         self.loggers = []
 
@@ -67,6 +68,9 @@ class Runner:
             return True
 
         if (state['y'] > self.config['y_max']) or (state['y'] < self.config['y_min']):
+            return True
+
+        if abs(state['y'] - self.target_y) < self.config['target_threshold']:
             return True
 
         return False
