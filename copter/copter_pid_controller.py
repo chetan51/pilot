@@ -1,27 +1,7 @@
-from core.controller import Controller
-from math import exp, floor
-from random import random
+from copter.copter_controller import CopterController
 
 
-class CopterPIDController(Controller):
-
-    def __init__(self, optimizer):
-        Controller.__init__(self, optimizer)
-        self.target_y = 0  # default
-
-    """ Public """
-
-    def setTarget(self, y):
-        self.target_y = y
-
-    """ Private """
-
-    def speedDict(self, speed_y):
-        return {'y': speed_y}
-
-    def act(self, state, predictor):
-        speed = self.chooseSpeed(state, predictor)
-        return self.speedDict(speed)
+class CopterPIDController(CopterController):
 
     def chooseSpeed(self, state, predictor):
         y_error = self.target_y - state['y']
