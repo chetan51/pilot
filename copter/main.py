@@ -20,7 +20,7 @@ def run(y, t, log_path):
     world = CopterWorld()
     controller = CopterPIDController(None)
     # controller = CopterCLAController(None)
-    predictor = CopterSpeedPredictor(predictor_config['serialization'])
+    predictor = CopterSpeedPredictor(predictor_config)
 
     state = world.observe()
 
