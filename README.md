@@ -6,18 +6,16 @@ To install:
 
     pip install -r requirements.txt
 
-To test the pendulum simulation:
+To test the copter simulation:
 
     cd path/to/pilot
-    python main.py [theta]
+    python project_name/main.py --controller [controller_name] [init_y] [target_y]
 
-...where [theta] is the initial angle offset in degrees (0 degrees is exactly vertical).
+...where 
+[controller_name] = {PID, CLA}
+[init_y]          = initial altitude (float)
+[target_y]        = the target altitude (float)
 
 ## Todo
 
-* Refactor loggers
-* Add ConsoleLogger
-* Implement training algorithms
-* Add # of predicted time steps into config file
-* Implement sliding buffer for logging predictions
 * Refactor plotters
