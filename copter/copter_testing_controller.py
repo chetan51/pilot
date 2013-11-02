@@ -1,4 +1,4 @@
-from core.controller import Controller
+from copter.copter_controller import CopterController
 from math import exp, floor
 from random import random
 
@@ -13,22 +13,16 @@ R_CENTER = 10000.
 R_SPREAD = 5000.
 
 
-class CopterTestingController(Controller):
+class CopterTestingController(CopterController):
 
     def __init__(self, optimizer, epsilon=None, inertia=None):
-        Controller.__init__(self, optimizer)
-        self.target_y = 0  # default
+        CopterController.__init__(self, optimizer)
         self.i = 0
-        self.last_force = 0
+        self.last_speed = 0
 
         self.epsilon_override = epsilon
         self.inertia_override = inertia
         self.repeat_for = self.inertia(self.i)
-
-    """ Public """
-
-    def setTarget(self, y):
-        self.target_y = y
 
     """ Private """
 
@@ -41,29 +35,26 @@ class CopterTestingController(Controller):
     def cost(self, state):
         return abs(state['y'] - self.target_y)
 
-    def forceDict(self, force_y):
-        return {'y': force_y}
-
     def act(self, state, predictor):
         self.i += 1
         self.repeat_for -= 1
         r = max(floor(self.repeat_for), 0)
 
         if (r):
-            force = self.last_force
+            speed = self.last_speed
         else:
             self.repeat_for = floor(self.inertia(self.i))
-            force = self.chooseForce(state, predictor)
+            speed = self.chooseSpeed(state, predictor)
 
-        self.last_force = force
-        return self.forceDict(force)
+        self.last_speed = speed
+        return self.speedDict(speed)
 
-    def chooseForce(self, state, predictor):
+    def chooseSpeed(self, state, predictor):
         exploit = random() < self.epsilon(self.i)
 
         if exploit:
             # print "(Exploiting)"
-            f = self.bestForce(state, predictor)
+            f = self.bestSpeed(state, predictor)
         else:
             # print "(Exploring)"
             f = (random() > 0.5)

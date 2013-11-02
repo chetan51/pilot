@@ -15,8 +15,8 @@ class Controller:
         print "TODO: implement Controller.candidates"
         return []
 
-    def forceDict(self, f):
-        print "TODO: implement Controller.forceDict"
+    def speedDict(self, s):
+        print "TODO: implement Controller.speedDict"
         return {}
 
     """ Public """
@@ -24,11 +24,11 @@ class Controller:
     def resetState(self):
         return
 
-    def bestForce(self, state, predictor):
+    def bestSpeed(self, state, predictor):
         candidates = self.candidates()
 
         predictions = map(
-            lambda c: predictor.predict(state, self.forceDict(c)),
+            lambda c: predictor.predict(state, self.speedDict(c)),
             candidates
         )
         costs = map(
@@ -40,9 +40,3 @@ class Controller:
         i_best = costs.index(min_cost)
 
         return candidates[i_best]
-
-    """ Private """
-
-    def simulate(self, state, force):
-        print "TODO: implement Controller.simulate"
-        return state
