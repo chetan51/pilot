@@ -57,6 +57,7 @@ class Predictor:
 
     def resetState(self):
         self.model.resetSequenceStates()
+        self.last_prediction = None
 
     def checkpoint(self):
         if self.is_learning_enabled:
