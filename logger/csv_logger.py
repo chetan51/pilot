@@ -1,22 +1,18 @@
 from logger import Logger
-from collections import defaultdict
-
-extra_labels = defaultdict(str,	{	'string'	:	'S',
-                                  'datetime'	:	'T'})
+import os
 
 
 class CsvLogger(Logger):
 
-    def __init__(self, config):
-        self.file_path = config['path']
-        if not self.file_path:
+    def __init__(self, config, path=None):
+        Logger.__init__(self, config)
+
+        if not path:
             self.is_valid = False
             return
 
+        self.file_path = os.path.abspath(path)
         self.is_valid = True
-        self.config = config
-        self.labels = config['labels']
-        self.types = config['types']
         self.file = open(self.file_path, 'w+')
         self.write_headers()
 
@@ -25,8 +21,8 @@ class CsvLogger(Logger):
             return
 
         self.file.write(list_to_csv(
-            dict_to_list(state, self.config['keys']['state']) +
-            dict_to_list(action, self.config['keys']['action']) +
+            dict_to_list(state, self.keys['state']) +
+            dict_to_list(action, self.keys['action']) +
             prediction.values()
         ))
 
@@ -34,7 +30,7 @@ class CsvLogger(Logger):
         self.file.write(list_to_csv(self.labels))
         self.file.write(list_to_csv(self.types))
         self.file.write(list_to_csv(
-            map((lambda x: extra_labels[x]), self.types))
+            map((lambda x: ""), self.types))
         )
 
 

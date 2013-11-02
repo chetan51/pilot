@@ -1,9 +1,8 @@
 # !/usr/bin/env python
-import os
 import sys
-from termcolor import colored
-import numpy as np
+
 from logger.csv_logger import CsvLogger
+from logger.console_logger import ConsoleLogger
 
 from copter.world.copter_world import CopterWorld
 from copter.controller.copter_pid_controller import CopterPIDController
@@ -22,11 +21,11 @@ def run(y, t, log_path):
     # controller = CopterCLAController(None)
     predictor = CopterSpeedPredictor(predictor_config)
 
+    loggers = []
+    loggers.append(CsvLogger(logger_config, log_path))
+    loggers.append(ConsoleLogger(logger_config))
+
     state = world.observe()
-
-    logger_config['path'] = os.path.abspath(log_path) if log_path else None
-    logger = CsvLogger(logger_config)
-
     world.state['y'] = y
 
     controller.setTarget(t)
@@ -48,19 +47,10 @@ def run(y, t, log_path):
         action = controller.act(state, predictor)
         prediction = predictor.learn(state, action)
 
-        logger.log(state, action, prediction)
+        for logger in loggers:
+            logger.log(state, action, prediction)
 
-        printTimestep(state, action, prediction)
         world.tick(action)
-
-
-def printTimestep(state, action, prediction):
-    print colored("[observed]  y: " + to_str(state['y']) + "\t" + "ydot: " + to_str(state['ydot']) + "\t" + "\t" + "speed_y: " + to_str(action['speed_y']), 'green')
-    print colored("[predicted] speed_y: " + to_str(prediction.values()[0]), 'red')
-
-
-def to_str(f):
-    return "%.2f" % f
 
 
 if __name__ == "__main__":
