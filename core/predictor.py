@@ -44,6 +44,7 @@ class Predictor:
         self.enableLearning()
 
         prediction = self.predictionFromModelResult(result)
+        self.last_prediction = prediction
         return prediction
 
     def enableLearning(self):
