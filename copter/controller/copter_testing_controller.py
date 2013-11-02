@@ -1,4 +1,4 @@
-from copter.copter_controller import CopterController
+from copter.controller.copter_controller import CopterController
 from math import exp, floor
 from random import random
 

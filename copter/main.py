@@ -4,11 +4,13 @@ import sys
 from copter_config import logger_config, predictor_config
 from termcolor import colored
 import numpy as np
-from copter.copter_world import CopterWorld
-from copter.copter_pid_controller import CopterPIDController
-from copter.copter_cla_controller import CopterCLAController
-from copter.copter_speed_predictor import CopterSpeedPredictor
 from logger.csv_logger import CsvLogger
+
+from copter.world.copter_world import CopterWorld
+from copter.controller.copter_pid_controller import CopterPIDController
+from copter.controller.copter_cla_controller import CopterCLAController
+from copter.predictor.copter_speed_predictor import CopterSpeedPredictor
+
 
 WORLD_BOUND = 500.
 ITERATIONS_PER_RUN = 2000
