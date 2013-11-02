@@ -31,12 +31,13 @@ def run(y, t, log_path):
     predictor.setTarget(t)
 
     i = 0
+    run = 0
     while True:
         i += 1
 
-        if (i > ITERATIONS_PER_RUN or state['y'] > WORLD_BOUND or state['y'] < - WORLD_BOUND):
-            print "Hit bounds, resetting state..."
-            i = 0
+        if (i % ITERATIONS_PER_RUN == 0 or state['y'] > WORLD_BOUND or state['y'] < - WORLD_BOUND):
+            run += 1
+            print "Resetting. Entering run: " + str(run)
             world.resetState()
             predictor.resetState()
             controller.resetState()
