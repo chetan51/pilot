@@ -1,7 +1,6 @@
 # !/usr/bin/env python
 import os
 import sys
-from copter_config import logger_config, predictor_config
 from termcolor import colored
 import numpy as np
 from logger.csv_logger import CsvLogger
@@ -10,6 +9,7 @@ from copter.world.copter_world import CopterWorld
 from copter.controller.copter_pid_controller import CopterPIDController
 from copter.controller.copter_cla_controller import CopterCLAController
 from copter.predictor.copter_speed_predictor import CopterSpeedPredictor
+from copter.config import logger_config, predictor_config
 
 
 WORLD_BOUND = 500.
