@@ -19,7 +19,7 @@ class Predictor:
     def getModelParams(self):
         print "getModelParams needs to be overridden"
 
-    def modelInputFromStateAndForce(self, state, force):
+    def modelInputFromStateAndAction(self, state, action):
         return {}
 
     # Optional, only for predictors whose predicted field is a state field
@@ -28,16 +28,16 @@ class Predictor:
 
     """ Public """
 
-    def learn(self, state, force):
+    def learn(self, state, action):
         self.checkpoint()
-        input = self.modelInputFromStateAndForce(state, force)
+        input = self.modelInputFromStateAndAction(state, action)
         result = self.model.run(input)
         prediction = self.predictionFromModelResult(result)
         self.last_prediction = prediction
         return prediction
 
-    def predict(self, state, force):
-        input = self.modelInputFromStateAndForce(state, force)
+    def predict(self, state, action):
+        input = self.modelInputFromStateAndAction(state, action)
 
         self.disableLearning()
         result = self.model.run(input)

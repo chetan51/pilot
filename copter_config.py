@@ -3,7 +3,7 @@ logger_config = {
     'types':  ['float', 'float', 'float', 'float', 'float'],
     'keys':   {
         'state': ['dy', 'y', 'ydot'],
-        'speed': ['y']
+        'action': ['speed_y']
     }
 }
 

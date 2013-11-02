@@ -47,7 +47,7 @@ class CopterTestingController(CopterController):
             speed = self.chooseSpeed(state, predictor)
 
         self.last_speed = speed
-        return self.speedDict(speed)
+        return self.actionFromSpeed(speed)
 
     def chooseSpeed(self, state, predictor):
         exploit = random() < self.epsilon(self.i)
@@ -78,3 +78,22 @@ class CopterTestingController(CopterController):
         m = (-i + R_CENTER) / R_SPREAD
         r = -(range / (1 + exp(m))) + R_MAX
         return r
+
+    """ Helpers """
+
+    def bestSpeed(self, state, predictor):
+        candidates = self.candidates()
+
+        predictions = map(
+            lambda c: predictor.predict(state, self.actionFromSpeed(c)),
+            candidates
+        )
+        costs = map(
+            lambda p: self.cost(predictor.stateFromPrediction(p, state)),
+            predictions
+        )
+
+        min_cost = min(costs)
+        i_best = costs.index(min_cost)
+
+        return candidates[i_best]

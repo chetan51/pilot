@@ -10,10 +10,10 @@ class CopterSpeedPredictor(Predictor):
     def setTarget(self, target):
         self.target = target
 
-    def modelInputFromStateAndForce(self, state, speed):
+    def modelInputFromStateAndAction(self, state, action):
         dtarget = state['y'] - self.target
         return {
             'dtarget': dtarget,
             'ydot':    state['ydot'],
-            'speed_y': speed['y']
+            'speed_y': action['speed_y']
         }

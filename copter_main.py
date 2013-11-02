@@ -43,17 +43,17 @@ def run(y, t, log_path):
             controller.resetState()
 
         state = world.observe()
-        speed = controller.act(state, predictor)
-        prediction = predictor.learn(state, speed)
+        action = controller.act(state, predictor)
+        prediction = predictor.learn(state, action)
 
-        logger.log(state, speed, prediction)
+        logger.log(state, action, prediction)
 
-        printTimestep(state, speed, prediction)
-        world.tick(speed)
+        printTimestep(state, action, prediction)
+        world.tick(action)
 
 
-def printTimestep(state, speed, prediction):
-    print colored("[observed]  y: " + to_str(state['y']) + "\t" + "ydot: " + to_str(state['ydot']) + "\t" + "\t" + "speed input: " + to_str(speed['y']), 'green')
+def printTimestep(state, action, prediction):
+    print colored("[observed]  y: " + to_str(state['y']) + "\t" + "ydot: " + to_str(state['ydot']) + "\t" + "\t" + "speed_y: " + to_str(action['speed_y']), 'green')
     print colored("[predicted] speed_y: " + to_str(prediction.values()[0]), 'red')
 
 

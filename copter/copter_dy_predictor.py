@@ -2,17 +2,17 @@ from core.predictor import Predictor
 import copter_model_params
 
 
-class CopterPredictor(Predictor):
+class CopterDyPredictor(Predictor):
 
     def getModelParams(self):
         return copter_model_params.MODEL_PARAMS
 
-    def modelInputFromStateAndForce(self, state, force):
+    def modelInputFromStateAndAction(self, state, action):
         return {
             'dy':      state['dy'],
             'ydot':    state['ydot'],
             'ydotdot': state['ydotdot'],
-            'force_y': force['y']
+            'speed_y': action['speed_y']
         }
 
     def stateFromPrediction(self, prediction, init_state):

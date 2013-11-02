@@ -14,7 +14,7 @@ class CopterController(Controller):
 
     def act(self, state, predictor):
         speed = self.chooseSpeed(state, predictor)
-        return self.speedDict(speed)
+        return self.actionFromSpeed(speed)
 
     # To be overridden
     def chooseSpeed(self, state, predictor):
@@ -22,5 +22,5 @@ class CopterController(Controller):
 
     """ Helpers """
 
-    def speedDict(self, speed_y):
-        return {'y': speed_y}
+    def actionFromSpeed(self, s):
+        return {'speed_y': s}
