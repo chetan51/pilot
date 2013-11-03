@@ -1,9 +1,6 @@
 import numpy as np
 from core.world import World
 
-FY_BASE = 2.5
-
-
 class CopterWorld(World):
 
     def __init__(self, dt=0.01, state=None, params=None):
