@@ -14,6 +14,7 @@ from copter.drone.mock_drone import MockDrone
 from copter.drone.ar_drone import ARDrone
 
 from copter.controller.copter_pid_controller import CopterPIDController
+from copter.controller.drone_pid_controller import DronePIDController
 from copter.controller.copter_cla_controller import CopterCLAController
 from copter.controller.copter_testing_controller import CopterTestingController
 from copter.predictor.copter_speed_predictor import CopterSpeedPredictor
@@ -35,8 +36,10 @@ if __name__ == "__main__":
                         help='enable learning')
     parser.add_argument('--controller',
                         help='controller type',
-                        choices=['PID', 'CLA', 'unsupervised'],
-                        default="PID")
+                        choices=['CopterPID', 'DronePID',
+                                 'CLA',
+                                 'unsupervised'],
+                        default="CopterPID")
     parser.add_argument('--world',
                         help='world type',
                         choices=['copter', 'drone'],
@@ -63,11 +66,14 @@ if __name__ == "__main__":
 
         world = DroneWorld(world_config, drone=drone)
 
-    controller = {
-        'CLA': lambda: CopterCLAController(None),
-        'PID': lambda: CopterPIDController(None),
-        'unsupervised': lambda: CopterTestingController(None)
-    }[args.controller]()
+    if args.controller == "CLA":
+        controller = CopterCLAController(None)
+    elif args.controller == "CopterPID":
+        controller = CopterPIDController(None)
+    elif args.controller == "DronePID":
+        controller = DronePIDController(None)
+    elif args.controller == "unsupervised":
+        controller = CopterTestingController(None)
 
     if args.guard == "copter":
         guard = CopterGuard()
