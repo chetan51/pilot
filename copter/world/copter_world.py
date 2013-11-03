@@ -2,6 +2,7 @@ import numpy as np
 from core.world import World
 import random
 
+
 class CopterWorld(World):
 
     def __init__(self, config):
