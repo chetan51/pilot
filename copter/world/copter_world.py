@@ -6,7 +6,8 @@ import random
 class CopterWorld(World):
 
     def __init__(self, config):
-        self.noise_amplitude = config['noise']
+        self.speed_noise_level = config['speed_noise']
+        self.altitude_noise_level = config['altitude_noise']
         self.last_sy = 0.0
         self.sy_threshold = getSpeedChangeThreshold(config)
         World.__init__(self, config)
@@ -21,13 +22,15 @@ class CopterWorld(World):
 
         s = self.state
 
+        s_noise = self.speed_noise_level * (2.0 * random.random() - 1.0)
+        a_noise = self.altitude_noise_level * (2.0 * random.random() - 1.0)
+
         y, dy, ydot = s['y'], s['dy'], s['ydot']
-        noise = self.noise_amplitude * (2.0 * random.random() - 1.0)
 
         # integrate
-        ydot = sy + noise
+        ydot = sy + s_noise
         dy = ydot * dt
-        y = y + dy
+        y = y + dy + a_noise
 
         return {
             'y': y,
