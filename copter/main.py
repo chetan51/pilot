@@ -28,7 +28,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Process some integers.')
     parser.add_argument('init_y', type=int, help='starting y position')
     parser.add_argument('target_y', type=int, help='target y position')
-    parser.add_argument('final_target_y', type=int,
+    parser.add_argument('--final_target_y', type=int,
                         help='final target y position')
     parser.add_argument('--log', help='path to log file')
     parser.add_argument('--learn', action='store_const', const=True,

@@ -1,6 +1,6 @@
 class Runner:
 
-    def __init__(self, config, world, predictor, controller, guard=None, learning_enabled=False, target_y=0., final_target_y=0.):
+    def __init__(self, config, world, predictor, controller, guard=None, learning_enabled=False, target_y=0., final_target_y=None):
         self.config = config
         self.world = world
         self.predictor = predictor
@@ -32,7 +32,7 @@ class Runner:
         self.i += 1
         state = self.world.observe()
 
-        if self.midwayThroughRun():
+        if self.midwayThroughRun() and self.final_target_y != None:
             self.resetPredictor()
             self.setTarget(self.final_target_y)
 
