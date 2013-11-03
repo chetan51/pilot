@@ -1,10 +1,6 @@
 {
   "includedFields": [
     {
-      "fieldName": "dy",
-      "fieldType": "float"
-    },
-    {
       "fieldName": "y",
       "fieldType": "float"
     },
@@ -14,10 +10,6 @@
     },
     {
       "fieldName": "speed_y",
-      "fieldType": "float"
-    },
-    {
-      "fieldName": "pred_speed_y",
       "fieldType": "float"
     }
   ],
