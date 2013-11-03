@@ -13,18 +13,19 @@ To test the copter simulation:
 
 To train:
 	
-	cd path/to/pilot
-	python copter/main.py --learn --controller PID [init_y] [target_y]
+    cd path/to/pilot
+    python copter/main.py --learn --controller PID [init_y] [target_y]
 
 To test the CLA controller:
 	
-	cd path/to/pilot
-	python copter/main.py --controller CLA [init_y] [target_y]
+    cd path/to/pilot
+    python copter/main.py --controller CLA [init_y] [target_y]
 
 ...where 
-[controller_name] = {PID, CLA}
-[init_y]          = initial altitude (float)
-[target_y]        = the target altitude (float)
+
+    [controller_name] = {PID, CLA}
+    [init_y]          = initial altitude (float)
+    [target_y]        = the target altitude (float)
 
 ## Todo
 
