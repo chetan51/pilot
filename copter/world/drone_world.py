@@ -24,16 +24,16 @@ class DroneWorld(World):
         sy = self.boundSpeedInput(action['speed_y'])  # speed input
         sy = self.convertSpeed(sy)
 
+        y = state[0]['altitude']
+        dy = y - self.last_y
+        ydot = state[0]['vy']
+
         self.drone.set_speed(sy)
         state = self.drone.navdata
 
         if 0 not in state:
             self.terminate()
             return
-
-        y = state[0]['altitude']
-        dy = y - self.last_y
-        ydot = state[0]['vy']
 
         return {
             'y': y,
