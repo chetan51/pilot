@@ -1,5 +1,5 @@
 runner_config = {
-    'iterations_per_run': 100000,
+    'iterations_per_run': 2000,
     'target_threshold': .005
 }
 
@@ -30,5 +30,6 @@ world_config = {
     'altitude_noise': 0.01,
     'max_rpm': 35000.,
     'hover_rpm': 28500.,
+    'sy_min': -5.0,
     'sy_max': 5.0
 }
