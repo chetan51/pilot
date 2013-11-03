@@ -21,3 +21,6 @@ class World:
     def resetState(self):
         self.state = deepcopy(self.init_state)
         self.dt = self.init_dt
+
+    def terminate(self):
+        pass

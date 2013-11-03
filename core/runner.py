@@ -1,10 +1,11 @@
 class Runner:
 
-    def __init__(self, config, world, predictor, controller, learning_enabled=False, target_y=0.):
+    def __init__(self, config, world, predictor, controller, guard=None, learning_enabled=False, target_y=0.):
         self.config = config
         self.world = world
         self.predictor = predictor
         self.controller = controller
+        self.guard = guard
         self.learning_enabled = learning_enabled
         self.target_y = target_y
 
@@ -12,6 +13,7 @@ class Runner:
 
         self.i = 0
         self.run = 0
+        self.disabled = False
 
     """ Public """
 
@@ -20,6 +22,9 @@ class Runner:
         self.predictor.setTarget(target)
 
     def tick(self):
+        if self.disabled:
+            return
+
         self.i += 1
         state = self.world.observe()
 
@@ -28,10 +33,23 @@ class Runner:
             return
 
         action = self.controller.act(state, self.predictor)
+
+        if not self.sanityCheck(state, action):
+            self.world.terminate()
+            self.disabled = True
+            return
+
         prediction = self.runPredictor(state, action)
+
         self.world.tick(action)
 
         self.log(state, action, prediction)
+
+    def sanityCheck(self, state, action):
+        if not self.guard:
+            return True
+
+        return self.guard.check(state, action)
 
     def runPredictor(self, state, action):
         if self.learning_enabled:
