@@ -29,6 +29,7 @@ class Runner:
         state = self.world.observe()
 
         if self.shouldBeginNewRun(state):
+            self.checkpointPredictor()
             self.reset()
             self.newRun()
             return
@@ -52,6 +53,11 @@ class Runner:
 
         return self.guard.check(state, action)
 
+    def checkpointPredictor(self):
+        if self.learning_enabled:
+            print "Checkpointing predictor... DO NOT KILL DURING THIS TIME"
+            self.predictor.checkpoint()
+
     def runPredictor(self, state, action):
         if self.learning_enabled:
             return self.predictor.learn(state, action)
@@ -60,12 +66,7 @@ class Runner:
 
     def newRun(self):
         self.run += 1
-
         print "Beginning a new run (" + str(self.run) + ")..."
-
-        if self.learning_enabled:
-            print "Checkpointing predictor... DO NOT KILL DURING THIS TIME"
-            self.predictor.checkpoint()
 
     def addLogger(self, logger):
         self.loggers.append(logger)
