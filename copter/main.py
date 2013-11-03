@@ -11,7 +11,7 @@ from copter.world.drone_world import DroneWorld
 from copter.world.mock_drone import MockDrone
 from copter.controller.copter_pid_controller import CopterPIDController
 from copter.controller.copter_cla_controller import CopterCLAController
-
+from copter.controller.copter_testing_controller import CopterTestingController
 from copter.predictor.copter_speed_predictor import CopterSpeedPredictor
 
 from copter.guard.copter_guard import CopterGuard
@@ -29,7 +29,7 @@ if __name__ == "__main__":
                         help='enable learning')
     parser.add_argument('--controller',
                         help='controller type',
-                        choices=['PID', 'CLA'],
+                        choices=['PID', 'CLA', 'unsupervised'],
                         default="PID")
     parser.add_argument('--world',
                         help='world type',
@@ -50,10 +50,11 @@ if __name__ == "__main__":
     else:
         world = DroneWorld(world_config, MockDrone())
 
-    if args.controller == "CLA":
-        controller = CopterCLAController(None)
-    else:
-        controller = CopterPIDController(None)
+    controller = {
+      'CLA': lambda: CopterCLAController(None),
+      'PID': lambda: CopterPIDController(None),
+      'unsupervised': lambda: CopterTestingController(None)
+    }[args.controller]()
 
     if args.guard == "copter":
         guard = CopterGuard()

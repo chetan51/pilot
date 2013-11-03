@@ -17,6 +17,7 @@ class CopterTestingController(CopterController):
 
     def __init__(self, optimizer, epsilon=None, inertia=None):
         CopterController.__init__(self, optimizer)
+        
         self.i = 0
         self.last_speed = 0
 
@@ -82,12 +83,13 @@ class CopterTestingController(CopterController):
     """ Helpers """
 
     def bestSpeed(self, state, predictor):
-        candidates = self.candidates()
+        raise Exception("test")
+        candidate_speeds = self.candidates()
 
-        predictions = map(
-            lambda c: predictor.predict(state, self.actionFromSpeed(c)),
-            candidates
-        )
+        candidate_actions = [self.actionFromSpeed(c) for c in candidate_speeds]
+        
+        predictions = predictor.imagine(state, candidate_actions)
+        
         costs = map(
             lambda p: self.cost(predictor.stateFromPrediction(p, state)),
             predictions

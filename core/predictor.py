@@ -45,6 +45,26 @@ class Predictor:
         self.last_prediction = prediction
         return prediction
 
+    def imagine(self, state, action_list):
+       
+        def predict_closure(input_list):    
+            def predict(model_fork):
+                model_fork.disableLearning()
+                results = []
+                for input in input_list:
+                    result = model_fork.run(input)
+                    results.append(result)
+                return results
+            return predict
+            
+        
+        # apply the function for each action
+        funcs = [predict_closure([self.modelInputFromStateAndAction(state, action)]) for action in action_list]
+        results = self.imagination.imagine(funcs)
+        predictions = [self.predictionFromModelResult(result[0]) for result in results]
+        
+        return predictions
+        
     def enableLearning(self):
         self.is_learning_enabled = True
         self.model.enableLearning()
