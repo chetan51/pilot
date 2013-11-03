@@ -93,9 +93,6 @@ class Runner:
         if self.i and (self.i % self.config['iterations_per_run'] == 0):
             return True
 
-        if (state['y'] > self.config['y_max']) or (state['y'] < self.config['y_min']):
-            return True
-
         if abs(state['y'] - self.target_y) < self.config['target_threshold']:
             return True
 
