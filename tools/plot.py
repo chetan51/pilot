@@ -20,7 +20,7 @@ def csv_plot(file_path, field_names):
     color_counter = 0
     plot_list = []
     for i in range(len(field_names)):
-        plot_list.append(x)
+        plot_list.append(x[:-3])
         plot_list.append(y[i][:-3])
         plot_list.append(colors[color_counter])
         color_counter += 1
