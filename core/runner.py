@@ -67,6 +67,7 @@ class Runner:
     def newRun(self):
         self.run += 1
         print "Beginning a new run (" + str(self.run) + ")..."
+        self.initPredictor()
 
     def addLogger(self, logger):
         self.loggers.append(logger)
@@ -84,7 +85,6 @@ class Runner:
         self.world.resetState()
         self.predictor.resetState()
         self.controller.resetState()
-        self.initPredictor()
 
     def log(self, state, action, prediction):
         for logger in self.loggers:
