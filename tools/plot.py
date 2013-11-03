@@ -12,8 +12,8 @@ def csv_plot(file_path, field_names):
     columns = []
     for i in field_names:
         columns.append(labels.index(i))
-    y = np.zeros([len(field_names), len(lines)])
-    x = np.arange(len(lines))
+    y = np.zeros([len(field_names), len(lines) - 1])
+    x = np.arange(len(lines) - 1)
     for col in range(len(lines[3:])):
         for row in range(len(field_names)):
             y[row][col] = float(lines[3 + col][columns[row]])
