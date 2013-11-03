@@ -19,7 +19,6 @@ class MockDrone(Drone):
         return self.navdata[0]['vy']
 
     def setSpeed(self, speed):
-        print speed
         if self.disabled:
             return
 
