@@ -15,6 +15,7 @@ class CopterWorld(World):
 
     def setInitY(self, init_y):
         self.init_state['y'] = init_y
+        self.state['y'] = init_y
 
     def peek(self, action):
          # set parameters of copter
