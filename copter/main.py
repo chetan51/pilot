@@ -33,8 +33,8 @@ if __name__ == "__main__":
                         default="PID")
     parser.add_argument('--world',
                         help='world type',
-                        choices=['real', 'simulation'],
-                        default="simulation")
+                        choices=['copter', 'drone'],
+                        default="copter")
     parser.add_argument('--mock_drone', action='store_const', const=True,
                         help='mock out the drone')
     parser.add_argument('--guard',
@@ -45,7 +45,7 @@ if __name__ == "__main__":
 
     predictor = CopterSpeedPredictor(predictor_config)
 
-    if args.world == "simulation":
+    if args.world == "copter":
         world = CopterWorld(world_config)
     else:
         world = DroneWorld(world_config, MockDrone())
@@ -72,6 +72,7 @@ if __name__ == "__main__":
     if args.log:
         runner.addLogger(CsvLogger(logger_config, args.log))
 
+    world.setup()
     world.setInitY(args.init_y)
     runner.setTarget(args.target_y)
 

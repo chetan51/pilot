@@ -12,6 +12,9 @@ class World:
 
         self.params = config['params']
 
+    def setup(self):
+        pass
+
     def observe(self):
         return self.state
 

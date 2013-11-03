@@ -2,6 +2,7 @@ import numpy as np
 from core.world import World
 import random
 import libardrone
+import time
 
 
 class DroneWorld(World):
@@ -16,6 +17,10 @@ class DroneWorld(World):
 
         self.drone = drone if drone else libardrone.ARDrone()
 
+    def setup(self):
+        self.drone.takeoff()
+        time.sleep(3.)
+
     def setInitY(self, init_y):
         self.init_state['y'] = init_y
 
@@ -24,7 +29,6 @@ class DroneWorld(World):
         sy = self.boundSpeedInput(action['speed_y'])  # speed input
         sy = self.convertSpeed(sy)
 
-        self.drone.set_speed(sy)
         state = self.drone.navdata
 
         if 0 not in state:
@@ -35,6 +39,8 @@ class DroneWorld(World):
         dy = y - self.last_y
         ydot = state[0]['vy']
 
+        self.drone.set_speed(sy)
+
         return {
             'y': y,
             'dy': dy,
@@ -44,6 +50,14 @@ class DroneWorld(World):
     def tick(self, action):
         self.state = self.peek(action)
         return self.state
+
+    def resetState(self):
+        World.resetState(self)
+
+        self.drone.land()
+        time.sleep(3.)
+
+        self.setup()
 
     def boundSpeedInput(self, sy):
         change = sy - self.last_sy
