@@ -20,6 +20,11 @@ class CopterController(Controller):
     def chooseSpeed(self, state, predictor):
         return 0.
 
+    """ Private """
+
+    def noop(self):
+        return self.actionFromSpeed(0.)
+
     """ Helpers """
 
     def actionFromSpeed(self, s):

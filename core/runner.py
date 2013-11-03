@@ -15,6 +15,10 @@ class Runner:
 
     """ Public """
 
+    def setTarget(self, target):
+        self.controller.setTarget(target)
+        self.predictor.setTarget(target)
+
     def tick(self):
         self.i += 1
         state = self.world.observe()
@@ -24,15 +28,16 @@ class Runner:
             return
 
         action = self.controller.act(state, self.predictor)
-
-        if self.learning_enabled:
-            prediction = self.predictor.learn(state, action)
-        else:
-            prediction = self.predictor.predict(state, action)
+        prediction = self.runPredictor(state, action)
+        self.world.tick(action)
 
         self.log(state, action, prediction)
 
-        self.world.tick(action)
+    def runPredictor(self, state, action):
+        if self.learning_enabled:
+            return self.predictor.learn(state, action)
+        else:
+            return self.predictor.predict(state, action)
 
     def newRun(self):
         self.reset()
@@ -41,23 +46,26 @@ class Runner:
         print "Beginning a new run (" + str(self.run) + ")..."
 
         if self.learning_enabled:
-            print "Checkpointing predictor..."
+            print "Checkpointing predictor... DO NOT KILL DURING THIS TIME"
             self.predictor.checkpoint()
-
-    def setTarget(self, target):
-        self.controller.setTarget(target)
-        self.predictor.setTarget(target)
 
     def addLogger(self, logger):
         self.loggers.append(logger)
 
     """ Private """
 
+    def initPredictor(self):
+        print "Initializing predictor..."
+        state = self.world.observe()
+        action = self.controller.noop()
+        prediction = self.runPredictor(state, action)
+
     def reset(self):
         print "Resetting..."
         self.world.resetState()
         self.predictor.resetState()
         self.controller.resetState()
+        self.initPredictor()
 
     def log(self, state, action, prediction):
         for logger in self.loggers:

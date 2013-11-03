@@ -5,6 +5,10 @@ class Controller:
 
     """ Override """
 
+    def noop(self):
+        print "TODO: implement Controller.noop"
+        return None
+
     def act(self, state, predictor):
         print "TODO: implement Controller.act"
         return None

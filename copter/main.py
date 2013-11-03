@@ -47,5 +47,7 @@ if __name__ == "__main__":
     world.setInitY(args.init_y)
     runner.setTarget(args.target_y)
 
+    runner.newRun()
+
     while True:
         runner.tick()
