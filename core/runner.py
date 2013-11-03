@@ -1,13 +1,12 @@
 class Runner:
 
-    def __init__(self, config, world, predictor, controller, guard=None, learning_enabled=False, target_y=0.):
+    def __init__(self, config, world, predictor, controller, guard=None, learning_enabled=False):
         self.config = config
         self.world = world
         self.predictor = predictor
         self.controller = controller
         self.guard = guard
         self.learning_enabled = learning_enabled
-        self.target_y = target_y
 
         self.loggers = []
 
@@ -69,6 +68,9 @@ class Runner:
         print "Beginning a new run (" + str(self.run) + ")..."
         self.initPredictor()
 
+    def halfwayThroughRun(self):
+        return self.i and (self.i % (self.config['iterations_per_run'] / 2) == 0)
+
     def addLogger(self, logger):
         self.loggers.append(logger)
 
@@ -80,10 +82,14 @@ class Runner:
         action = self.controller.noop()
         prediction = self.runPredictor(state, action)
 
+    def resetPredictor(self):
+        print "Resetting predictor..."
+        self.predictor.resetState()
+
     def reset(self):
         print "Resetting..."
         self.world.resetState()
-        self.predictor.resetState()
+        self.resetPredictor()
         self.controller.resetState()
 
     def log(self, state, action, prediction):

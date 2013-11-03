@@ -28,6 +28,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Process some integers.')
     parser.add_argument('init_y', type=int, help='starting y position')
     parser.add_argument('target_y', type=int, help='target y position')
+    parser.add_argument('final_target_y', type=int,
+                        help='final target y position')
     parser.add_argument('--log', help='path to log file')
     parser.add_argument('--learn', action='store_const', const=True,
                         help='enable learning')
@@ -77,8 +79,7 @@ if __name__ == "__main__":
     runner = Runner(runner_config,
                     world, predictor, controller,
                     guard=guard,
-                    learning_enabled=args.learn,
-                    target_y=args.target_y)
+                    learning_enabled=args.learn)
 
     runner.addLogger(ConsoleLogger(logger_config))
     if args.log:
@@ -93,6 +94,10 @@ if __name__ == "__main__":
     while True:
         try:
             runner.tick()
+
+            if runner.halfwayThroughRun():
+                runner.resetPredictor()
+                runner.setTarget(args.final_target_y)
         except Exception as e:
             print e
             runner.world.terminate()
