@@ -1,5 +1,6 @@
 # !/usr/bin/env python
 import argparse
+import sys
 
 from core.runner import Runner
 
@@ -61,9 +62,9 @@ if __name__ == "__main__":
         world = DroneWorld(world_config, drone=drone)
 
     controller = {
-      'CLA': lambda: CopterCLAController(None),
-      'PID': lambda: CopterPIDController(None),
-      'unsupervised': lambda: CopterTestingController(None)
+        'CLA': lambda: CopterCLAController(None),
+        'PID': lambda: CopterPIDController(None),
+        'unsupervised': lambda: CopterTestingController(None)
     }[args.controller]()
 
     if args.guard == "copter":
@@ -90,4 +91,9 @@ if __name__ == "__main__":
     runner.newRun()
 
     while True:
-        runner.tick()
+        try:
+            runner.tick()
+        except Exception as e:
+            print e
+            runner.world.terminate()
+            sys.exit()
