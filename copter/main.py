@@ -44,7 +44,7 @@ if __name__ == "__main__":
     if args.log:
         runner.addLogger(CsvLogger(logger_config, args.log))
 
-    world.state['y'] = args.init_y
+    world.setInitY(args.init_y)
     runner.setTarget(args.target_y)
 
     while True:

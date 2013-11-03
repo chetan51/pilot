@@ -9,6 +9,9 @@ class CopterWorld(World):
         self.noise_amplitude = config['noise']
         World.__init__(self, config)
 
+    def setInitY(self, init_y):
+        self.init_state['y'] = init_y
+
     def peek(self, action):
          # set parameters of copter
         dt = self.dt
