@@ -19,3 +19,14 @@ predictor_config = {
         'path': '/tmp/pilot/default/copter'
     }
 }
+
+world_config = {
+    'dt': 0.01, 
+    'state' : {
+                'y': 0.,
+                'dy': 0.,
+                'ydot': 0.,
+            },
+    'params': None,
+    'noise' : 0.1
+}

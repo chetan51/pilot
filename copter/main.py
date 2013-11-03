@@ -10,7 +10,7 @@ from copter.world.copter_world import CopterWorld
 from copter.controller.copter_pid_controller import CopterPIDController
 from copter.controller.copter_cla_controller import CopterCLAController
 from copter.predictor.copter_speed_predictor import CopterSpeedPredictor
-from copter.config import runner_config, logger_config, predictor_config
+from copter.config import runner_config, logger_config, predictor_config, world_config
 
 
 if __name__ == "__main__":
@@ -27,7 +27,7 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    world = CopterWorld()
+    world = CopterWorld(world_config)
     predictor = CopterSpeedPredictor(predictor_config)
 
     if args.controller == "CLA":

@@ -3,14 +3,14 @@ from copy import deepcopy
 
 class World:
 
-    def __init__(self, dt, state, params):
-        self.state = state
-        self.init_state = deepcopy(state)
+    def __init__(self, config):
+        self.state = config['state']
+        self.init_state = deepcopy(self.state)
 
-        self.dt = dt
-        self.init_dt = dt
+        self.dt = config['dt']
+        self.init_dt = self.dt
 
-        self.params = params
+        self.params = config['params']
 
     def observe(self):
         return self.state

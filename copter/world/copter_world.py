@@ -4,15 +4,9 @@ import random
 
 class CopterWorld(World):
 
-    def __init__(self, dt=0.01, state=None, params=None, noise = .1):
-        if not state:
-            state = {
-                'y': 0.,
-                'dy': 0.,
-                'ydot': 0.,
-            }
-        self.noise_amplitude = noise
-        World.__init__(self, dt, state, params)
+    def __init__(self, config):
+        self.noise_amplitude = config['noise']
+        World.__init__(self, config)
 
     def peek(self, action):
          # set parameters of copter
