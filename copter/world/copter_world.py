@@ -8,6 +8,7 @@ class CopterWorld(World):
     def __init__(self, config):
         self.speed_noise_level = config['speed_noise']
         self.altitude_noise_level = config['altitude_noise']
+        self.sy_max = config['sy_max']
         self.last_sy = 0.0
         self.sy_threshold = getSpeedChangeThreshold(config)
         World.__init__(self, config)
@@ -22,8 +23,8 @@ class CopterWorld(World):
 
         s = self.state
 
-        s_noise = self.speed_noise_level * (2.0 * random.random() - 1.0)
-        a_noise = self.altitude_noise_level * (2.0 * random.random() - 1.0)
+        s_noise = self.speed_noise_level * uniform_noise()
+        a_noise = self.altitude_noise_level * uniform_noise()
 
         y, dy, ydot = s['y'], s['dy'], s['ydot']
 
@@ -51,9 +52,9 @@ class CopterWorld(World):
     def boundSpeedInput(self, sy):
         change = sy - self.last_sy
         if change > self.sy_threshold:
-            return self.last_sy + self.sy_threshold
+            return min(self.last_sy + self.sy_threshold, self.sy_max)
         if change < -self.sy_threshold:
-            return self.last_sy - self.sy_threshold
+            return max(- self.sy_max, self.last_sy - self.sy_threshold)
         return sy
 
 
@@ -63,3 +64,7 @@ def getSpeedChangeThreshold(config):
     max_rpm, hover_rpm = config['max_rpm'], config['hover_rpm']
     g = 9.81
     return dt * ((m * g / hover_rpm) * max_rpm) / m
+
+
+def uniform_noise():
+    return (2.0 * random.random() - 1.0)

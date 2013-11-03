@@ -21,7 +21,7 @@ predictor_config = {
 }
 
 world_config = {
-    'dt': 0.1,
+    'dt': 0.05,
     'state': {
         'y': 0.,
         'dy': 0.,
@@ -31,5 +31,6 @@ world_config = {
     'speed_noise': 0.1,
     'altitude_noise': 0.01,
     'max_rpm': 35000.,
-    'hover_rpm': 28500.
+    'hover_rpm': 28500.,
+    'sy_max': 5.0
 }
