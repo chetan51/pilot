@@ -21,16 +21,10 @@ class DroneWorld(World):
     def setInitY(self, init_y):
         self.init_state['y'] = init_y
 
-    def peek(self, action):
-         # set parameters of copter
-        sy = self.boundSpeedInput(action['speed_y'])  # speed input
-        sy = self.convertSpeed(sy)
-
+    def observe(self):
         y = self.drone.altitude()
         ydot = self.drone.speed()
         dy = y - self.last_y
-
-        self.drone.setSpeed(sy)
 
         return {
             'y': y,
@@ -39,8 +33,9 @@ class DroneWorld(World):
         }
 
     def tick(self, action):
-        self.state = self.peek(action)
-        return self.state
+        sy = self.boundSpeedInput(action['speed_y'])  # speed input
+        sy = self.convertSpeed(sy)
+        self.drone.setSpeed(sy)
 
     def resetState(self):
         World.resetState(self)
