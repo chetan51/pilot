@@ -7,10 +7,15 @@ from logger.csv_logger import CsvLogger
 from logger.console_logger import ConsoleLogger
 
 from copter.world.copter_world import CopterWorld
+
 from copter.controller.copter_pid_controller import CopterPIDController
 from copter.controller.copter_cla_controller import CopterCLAController
+
 from copter.predictor.copter_speed_predictor import CopterSpeedPredictor
+
 from copter.guard.copter_guard import CopterGuard
+from copter.guard.drone_guard import DroneGuard
+
 from copter.config import runner_config, logger_config, predictor_config, world_config
 
 
@@ -27,7 +32,7 @@ if __name__ == "__main__":
                         default="PID")
     parser.add_argument('--guard',
                         help='guard type',
-                        choices=['copter'])
+                        choices=['copter', 'drone'])
 
     args = parser.parse_args()
 
@@ -41,6 +46,8 @@ if __name__ == "__main__":
 
     if args.guard == "copter":
         guard = CopterGuard()
+    elif args.guard == "drone":
+        guard = DroneGuard()
     else:
         guard = None
 
