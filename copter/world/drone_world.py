@@ -34,7 +34,6 @@ class DroneWorld(World):
 
     def tick(self, action):
         sy = self.boundSpeedInput(action['speed_y'])  # speed input
-        sy = self.convertSpeed(sy)
         self.drone.setSpeed(sy)
 
     def resetState(self):
@@ -48,6 +47,3 @@ class DroneWorld(World):
     def terminate(self):
         World.terminate(self)
         return self.drone.land()
-
-    def convertSpeed(self, speed):
-        return speed / (self.sy_max * 2.)  # put into -0.5 to 0.5 scale

@@ -28,8 +28,6 @@ world_config = {
     'params': {'m': 0.8},
     'speed_noise': 0.1,
     'altitude_noise': 0.01,
-    'max_rpm': 35000.,
-    'hover_rpm': 28500.,
-    'sy_min': -5.0,
-    'sy_max': 5.0
+    'sy_min': -.5,
+    'sy_max': .5
 }
