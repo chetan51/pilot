@@ -2,30 +2,31 @@
 
 An AI running on NuPIC using the CLA to control physical dynamic systems using goal-oriented behavior.
 
-To install:
+## Installation
+
+Install dependencies:
 
     pip install -r requirements.txt
 
-To test the copter simulation:
+## Running
 
     cd path/to/pilot
-    python copter/main.py --controller [controller_name] [init_y] [target_y]
 
-To train:
-	
-    cd path/to/pilot
-    python copter/main.py --learn --controller PID [init_y] [target_y]
+Run the Copter simulation, having the PID controller fly the copter from altitude 0 to altitude 10, with the CLA watching and learning:
 
-To test the CLA controller:
-	
-    cd path/to/pilot
-    python copter/main.py --controller CLA [init_y] [target_y]
+    python copter/main.py 0 10 --learn
 
-...where 
+Then, run the Copter simulation using the trained CLA from the last step to directly control the copter (with learning disabled):
 
-    [controller_name] = {PID, CLA}
-    [init_y]          = initial altitude (float)
-    [target_y]        = the target altitude (float)
+    python copter/main.py 0 10 --controller CLA
+
+If you have an AR.Drone, fly the drone using a PID controller, with the CLA watching:
+
+    python copter/main.py 0 1000 --world drone --guard drone --drone ar_drone --learn
+
+Then, have the trained CLA directly control the AR.Drone (with learning disabled):
+
+    python copter/main.py 0 1000 --world drone --guard drone --drone ar_drone --controller CLA
 
 ## Todo
 
