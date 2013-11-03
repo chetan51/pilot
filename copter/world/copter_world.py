@@ -1,16 +1,17 @@
 import numpy as np
 from core.world import World
+import random
 
 class CopterWorld(World):
 
-    def __init__(self, dt=0.01, state=None, params=None):
+    def __init__(self, dt=0.01, state=None, params=None, noise = .1):
         if not state:
             state = {
                 'y': 0.,
                 'dy': 0.,
                 'ydot': 0.,
             }
-
+        self.noise_amplitude = noise
         World.__init__(self, dt, state, params)
 
     def peek(self, action):
@@ -21,9 +22,10 @@ class CopterWorld(World):
         s = self.state
 
         y, dy, ydot = s['y'], s['dy'], s['ydot']
+        noise = self.noise_amplitude * (2.0 * random.random() - 1.0)
 
         # integrate
-        ydot = sy
+        ydot = sy + noise
         dy = ydot * dt
         y = y + dy
 
