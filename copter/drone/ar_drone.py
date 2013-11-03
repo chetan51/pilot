@@ -36,7 +36,7 @@ class ARDrone(Drone):
     def takeoff(self):
         print "Drone taking off..."
         self.drone.takeoff()
-        time.sleep(5.)
+        time.sleep(7.5)
         print "Drone took off."
 
     def land(self):
