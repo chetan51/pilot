@@ -46,6 +46,9 @@ class DroneWorld(World):
         self.state = self.peek(action)
         return self.state
 
+    def resetState(self):
+        self.terminate()
+
     def boundSpeedInput(self, sy):
         change = sy - self.last_sy
         if change > self.sy_threshold:
