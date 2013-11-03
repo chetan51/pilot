@@ -1,5 +1,6 @@
 runner_config = {
-    'iterations_per_run': 1000
+    'iterations_per_run': 1000,
+    'run_split': 0.6
 }
 
 logger_config = {

@@ -1,12 +1,16 @@
 class Runner:
 
-    def __init__(self, config, world, predictor, controller, guard=None, learning_enabled=False):
+    def __init__(self, config, world, predictor, controller, guard=None, learning_enabled=False, target_y=0., final_target_y=0.):
         self.config = config
         self.world = world
         self.predictor = predictor
         self.controller = controller
         self.guard = guard
         self.learning_enabled = learning_enabled
+        self.target_y = target_y
+        self.final_target_y = final_target_y
+
+        self.setTarget(self.target_y)
 
         self.loggers = []
 
@@ -17,6 +21,7 @@ class Runner:
     """ Public """
 
     def setTarget(self, target):
+        print "Setting target to: " + str(target)
         self.controller.setTarget(target)
         self.predictor.setTarget(target)
 
@@ -27,9 +32,15 @@ class Runner:
         self.i += 1
         state = self.world.observe()
 
+        if self.midwayThroughRun():
+            self.resetPredictor()
+            self.setTarget(self.final_target_y)
+
         if self.shouldBeginNewRun(state):
             self.checkpointPredictor()
             self.reset()
+
+            self.setTarget(self.target_y)
             self.newRun()
             return
 
@@ -68,8 +79,16 @@ class Runner:
         print "Beginning a new run (" + str(self.run) + ")..."
         self.initPredictor()
 
-    def halfwayThroughRun(self):
-        return self.i and (self.i % (self.config['iterations_per_run'] / 2) == 0)
+    def midwayThroughRun(self):
+        iterations_per_run = self.config['iterations_per_run']
+
+        if not self.i or self.i % iterations_per_run == 0:
+            return False
+
+        split = self.config['run_split']
+        current_i = self.i % iterations_per_run
+
+        return (current_i % int(iterations_per_run * split) == 0)
 
     def addLogger(self, logger):
         self.loggers.append(logger)

@@ -79,7 +79,9 @@ if __name__ == "__main__":
     runner = Runner(runner_config,
                     world, predictor, controller,
                     guard=guard,
-                    learning_enabled=args.learn)
+                    learning_enabled=args.learn,
+                    target_y=args.target_y,
+                    final_target_y=args.final_target_y)
 
     runner.addLogger(ConsoleLogger(logger_config))
     if args.log:
@@ -87,7 +89,6 @@ if __name__ == "__main__":
 
     world.setup()
     world.setInitY(args.init_y)
-    runner.setTarget(args.target_y)
 
     runner.newRun()
 
@@ -95,9 +96,6 @@ if __name__ == "__main__":
         try:
             runner.tick()
 
-            if runner.halfwayThroughRun():
-                runner.resetPredictor()
-                runner.setTarget(args.final_target_y)
         except Exception as e:
             print e
             runner.world.terminate()
