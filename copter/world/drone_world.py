@@ -17,6 +17,10 @@ class DroneWorld(World):
 
         self.drone = drone if drone else libardrone.ARDrone()
 
+    def setup(self):
+        self.drone.takeoff()
+        time.sleep(3.)
+
     def setInitY(self, init_y):
         self.init_state['y'] = init_y
 
@@ -52,8 +56,8 @@ class DroneWorld(World):
 
         self.drone.land()
         time.sleep(3.)
-        self.drone.takeoff()
-        time.sleep(3.)
+
+        self.setup()
 
     def boundSpeedInput(self, sy):
         change = sy - self.last_sy
