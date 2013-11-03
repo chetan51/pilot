@@ -1,5 +1,5 @@
 runner_config = {
-    'iterations_per_run': 2000,
+    'iterations_per_run': 500,
     'target_threshold': .005
 }
 
