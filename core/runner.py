@@ -29,6 +29,7 @@ class Runner:
         state = self.world.observe()
 
         if self.shouldBeginNewRun(state):
+            self.reset()
             self.newRun()
             return
 
@@ -58,7 +59,6 @@ class Runner:
             return self.predictor.predict(state, action)
 
     def newRun(self):
-        self.reset()
         self.run += 1
 
         print "Beginning a new run (" + str(self.run) + ")..."
