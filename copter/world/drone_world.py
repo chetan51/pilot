@@ -2,6 +2,7 @@ import numpy as np
 from core.world import World
 import random
 import libardrone
+import time
 
 
 class DroneWorld(World):
@@ -47,7 +48,12 @@ class DroneWorld(World):
         return self.state
 
     def resetState(self):
-        self.terminate()
+        World.resetState(self)
+
+        self.drone.land()
+        time.sleep(3.)
+        self.drone.takeoff()
+        time.sleep(3.)
 
     def boundSpeedInput(self, sy):
         change = sy - self.last_sy

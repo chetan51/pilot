@@ -12,7 +12,11 @@ class MockDrone():
         self.speed = speed
         self.navdata[0]['altitude'] += 0.1
 
+    def takeoff(self):
+        print "Mock drone taking off..."
+        self.disabled = False
+
     def land(self):
-        print 'Landing mock drone.'
+        print 'Mock drone landing...'
         self.disabled = True
         self.navdata[0]['altitude'] = 0
