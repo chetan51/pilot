@@ -8,7 +8,10 @@ from logger.console_logger import ConsoleLogger
 
 from copter.world.copter_world import CopterWorld
 from copter.world.drone_world import DroneWorld
-from copter.world.mock_drone import MockDrone
+
+from copter.drone.mock_drone import MockDrone
+from copter.drone.ar_drone import ARDrone
+
 from copter.controller.copter_pid_controller import CopterPIDController
 from copter.controller.copter_cla_controller import CopterCLAController
 from copter.controller.copter_testing_controller import CopterTestingController
@@ -35,8 +38,10 @@ if __name__ == "__main__":
                         help='world type',
                         choices=['copter', 'drone'],
                         default="copter")
-    parser.add_argument('--mock_drone', action='store_const', const=True,
-                        help='mock out the drone')
+    parser.add_argument('--drone',
+                        help='drone type',
+                        choices=['ar_drone', 'mock_drone'],
+                        default="mock_drone")
     parser.add_argument('--guard',
                         help='guard type',
                         choices=['copter', 'drone'])
@@ -48,7 +53,12 @@ if __name__ == "__main__":
     if args.world == "copter":
         world = CopterWorld(world_config)
     else:
-        world = DroneWorld(world_config, MockDrone())
+        if args.drone == "ar_drone":
+            drone = ARDrone()
+        else:
+            drone = MockDrone()
+
+        world = DroneWorld(world_config, drone=drone)
 
     controller = {
       'CLA': lambda: CopterCLAController(None),

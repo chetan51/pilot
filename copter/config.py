@@ -1,7 +1,7 @@
 runner_config = {
     'y_min': -500.,
     'y_max': 500.,
-    'iterations_per_run': 2000,
+    'iterations_per_run': 100000,
     'target_threshold': .005
 }
 
