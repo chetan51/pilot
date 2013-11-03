@@ -37,7 +37,14 @@ class ARDrone(Drone):
         print "Drone taking off..."
         self.drone.takeoff()
         time.sleep(7.5)
+        self.lowerHover()
         print "Drone took off."
+
+    def lowerHover(self):
+        self.drone.set_speed(0.1)
+        self.drone.move_down()
+        sleep(2.)
+        self.drone.hover()
 
     def land(self):
         print 'Drone landing...'
