@@ -27,6 +27,8 @@ world_config = {
         'dy': 0.,
         'ydot': 0.,
     },
-    'params': None,
-    'noise': 0.1
+    'params': {'m': 0.8},
+    'noise': 0.0,
+    'max_rpm': 35000.,
+    'hover_rpm': 28500.
 }

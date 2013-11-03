@@ -7,6 +7,8 @@ class CopterWorld(World):
 
     def __init__(self, config):
         self.noise_amplitude = config['noise']
+        self.last_sy = 0.0
+        self.sy_threshold = getSpeedChangeThreshold(config)
         World.__init__(self, config)
 
     def setInitY(self, init_y):
@@ -15,7 +17,7 @@ class CopterWorld(World):
     def peek(self, action):
          # set parameters of copter
         dt = self.dt
-        sy = action['speed_y']  # speed input
+        sy = self.boundSpeedInput(action['speed_y'])  # speed input
 
         s = self.state
 
@@ -42,3 +44,18 @@ class CopterWorld(World):
         # put all the variables back into the self.state
         s['y'], s['dy'], s['ydot'] = y, dy, ydot
         return s
+
+    def boundSpeedInput(self, sy):
+        change = sy - self.last_sy
+        if change > self.sy_threshold:
+            return self.last_sy + self.sy_threshold
+        if change < -self.sy_threshold:
+            return self.last_sy - self.sy_threshold
+        return sy
+
+
+def getSpeedChangeThreshold(config):
+    m = config['params']['m']
+    dt = config['dt']
+    max_rpm, hover_rpm = config['max_rpm'], config['hover_rpm']
+    return dt * ((m / hover_rpm) * max_rpm) / m
