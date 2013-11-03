@@ -1,0 +1,49 @@
+{
+  "includedFields": [
+    {
+      "fieldName": "dy",
+      "fieldType": "float"
+    },
+    {
+      "fieldName": "y",
+      "fieldType": "float"
+    },
+    {
+      "fieldName": "ydot",
+      "fieldType": "float"
+    },
+    {
+      "fieldName": "speed_y",
+      "fieldType": "float"
+    },
+    {
+      "fieldName": "pred_speed_y",
+      "fieldType": "float"
+    }
+  ],
+  "streamDef": {
+    "info": "test",
+    "version": 1,
+    "streams": [
+      {
+        "info": "idata.csv",
+        "source": "file://idata.csv",
+        "columns": [
+          "*"
+        ],
+        "last_record": 10000
+      }
+    ]
+  },
+  "inferenceType": "MultiStep",
+  "inferenceArgs": {
+    "predictionSteps": [
+      1
+    ],
+    "predictedField": "speed_y"
+  },
+  "iterationCount": -1,
+  "swarmSize": "small"
+}
+
+
