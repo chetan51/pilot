@@ -58,4 +58,5 @@ def getSpeedChangeThreshold(config):
     m = config['params']['m']
     dt = config['dt']
     max_rpm, hover_rpm = config['max_rpm'], config['hover_rpm']
-    return dt * ((m / hover_rpm) * max_rpm) / m
+    g = 9.81
+    return dt * ((m * g / hover_rpm) * max_rpm) / m
