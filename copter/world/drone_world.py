@@ -1,16 +1,17 @@
 import numpy as np
 from core.world import World
 import random
+import libardrone
 
 
-class CopterWorld(World):
+class DroneWorld(World):
 
-    def __init__(self, config):
-        self.speed_noise_level = config['speed_noise']
-        self.altitude_noise_level = config['altitude_noise']
-        self.sy_max = config['sy_max']
+    def __init__(self, config, drone=None):
         self.last_sy = 0.0
         self.sy_threshold = getSpeedChangeThreshold(config)
+        self.sy_max = config['sy_max']
+        self.drone = drone if drone else libardrone.ARDrone()
+        self.last_y = 0.0
         World.__init__(self, config)
 
     def setInitY(self, init_y):
@@ -18,20 +19,19 @@ class CopterWorld(World):
 
     def peek(self, action):
          # set parameters of copter
-        dt = self.dt
         sy = self.boundSpeedInput(action['speed_y'])  # speed input
+        sy = convertSpeed(sy)
 
-        s = self.state
+        drone.set_speed(sy)
+        state = drone.navdata
 
-        s_noise = self.speed_noise_level * uniform_noise()
-        a_noise = self.altitude_noise_level * uniform_noise()
+        if 0 not in state:
+            self.terminate()
+            return
 
-        y, dy, ydot = s['y'], s['dy'], s['ydot']
-
-        # integrate
-        ydot = sy + s_noise
-        dy = ydot * dt
-        y = y + dy + a_noise
+        y = state[0]['altitude']
+        dy = y - self.last_y
+        ydot = state[0]['vy']
 
         return {
             'y': y,
@@ -55,6 +55,9 @@ class CopterWorld(World):
             return max(- self.sy_max, self.last_sy - self.sy_threshold)
         return sy
 
+    def terminate():
+        return self.drone.land()
+
 
 def getSpeedChangeThreshold(config):
     m = config['params']['m']
@@ -62,6 +65,10 @@ def getSpeedChangeThreshold(config):
     max_rpm, hover_rpm = config['max_rpm'], config['hover_rpm']
     g = 9.81
     return dt * ((m * g / hover_rpm) * max_rpm) / m
+
+
+def convertSpeed(speed):
+    return speed / self.sy_max
 
 
 def uniform_noise():
