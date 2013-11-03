@@ -40,12 +40,8 @@ class CopterWorld(World):
         }
 
     def tick(self, action):
-        p = self.peek(action)
-        s = self.state
-
-        s['y'], s['dy'], s['ydot'] = p['y'], p['dy'], p['ydot']
-
-        return s
+        self.state = self.peek(action)
+        return self.state
 
     def boundSpeedInput(self, sy):
         change = sy - self.last_sy
