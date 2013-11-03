@@ -9,32 +9,38 @@ class ARDrone(Drone):
         Drone.__init__(self)
         self.drone = libardrone.ARDrone()
         print "Drone initializing..."
-        time.sleep(10.)
+        time.sleep(5.)
         print "Drone initialized."
 
     def altitude(self):
         state = self.drone.navdata
-        return state[0]['altitude']
+        altitude = state[0]['altitude']
+        print "Drone altitude: " + str(altitude)
+        return altitude
 
     def speed(self):
         state = self.drone.navdata
-        return state[0]['vy']
+        speed = state[0]['vy']
+        print "Drone speed: " + str(speed)
+        return speed
 
     def setSpeed(self, speed):
-        self.drone.set_speed(abs(sy))
+        self.drone.set_speed(abs(speed))
         if speed > 0:
+            print "Drone moving up with speed: " + str(speed)
             self.drone.move_up()
         else:
+            print "Drone moving down with speed: " + str(speed)
             self.drone.move_down()
 
     def takeoff(self):
         print "Drone taking off..."
         self.drone.takeoff()
-        time.sleep(10.)
+        time.sleep(5.)
         print "Drone took off."
 
     def land(self):
         print 'Drone landing...'
         self.drone.land()
-        time.sleep(15.)
+        time.sleep(10.)
         print 'Drone landed.'
