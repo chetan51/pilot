@@ -1,5 +1,5 @@
 from copter.drone.drone import Drone
-import libardrone
+from external.libardrone import libardrone
 import time
 
 
