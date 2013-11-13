@@ -1,5 +1,5 @@
 from copter.drone.drone import Drone
-from external.libardrone import libardrone
+from external.python_ardrone import libardrone
 import time
 
 
